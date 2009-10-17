@@ -3,7 +3,9 @@
  */
 gecui.Application = function() {
 
-	var centerPanel = new gec.FeatureTypePanel({region: 'center'});
+	var centerPanel = new gec.FeatureTypePanel( {
+		region : 'center'
+	});
 
 	var root = new Ext.tree.TreeNode( {
 		text : 'Geoserver'
@@ -35,7 +37,7 @@ gecui.Application = function() {
 
 				var onClick = function() {
 					centerPanel.setCurrentFeatureType(this.href);
-					//centerPanel.getUpdater().update(this.href);
+					// centerPanel.getUpdater().update(this.href);
 				};
 
 				var onContextmenu = function(node, e) {

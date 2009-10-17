@@ -1,1 +1,3 @@
-gecui = {};
+gecui = {
+	tree : {}
+};
