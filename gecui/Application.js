@@ -2,6 +2,8 @@
  * @constructor
  */
 gecui.Application = function() {
+	
+	gecui.url = '/geoserver/rest/';
 
 	gecui.Application.centerPanel = new gecui.FeatureTypePanel( {
 		region : 'center'
@@ -14,6 +16,7 @@ gecui.Application = function() {
 		},
 		items : [ {
 			region : 'west',
+			split: true,
 			width : 200,
 			items : {xtype: 'gecui-mainmenu'}
 		}, gecui.Application.centerPanel ]

@@ -1,6 +1,4 @@
 /**
- * Node that will populate itself from Geoserver REST API
- * 
  * @constructor
  */
 gecui.tree.WorkspacesNode = function(config) {
@@ -11,18 +9,16 @@ gecui.tree.WorkspacesNode = function(config) {
 	}, config));
 
 	var success = function(response) {
-		var namespaces = Ext.decode(response.responseText).namespaces.namespace;
+		var workspaces = Ext.decode(response.responseText).workspaces.workspace;
 
-		for ( var i = 0; i < namespaces.length; i++) {
-			var namespace = namespaces[i];
-			self.appendChild(new gecui.tree.WorkspaceNode( {
-				namespace : namespace
-			}));
+		for ( var i = 0; i < workspaces.length; i++) {
+			var workspace = workspaces[i];
+			self.appendChild(new gecui.tree.WorkspaceNode(workspace.href));
 		}
 	};
 
 	Ext.Ajax.request( {
-		url : '/geoserver/rest/namespaces.json',
+		url : gecui.url + 'workspaces.json',
 		success : success
 	});
 };

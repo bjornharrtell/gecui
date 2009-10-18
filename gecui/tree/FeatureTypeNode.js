@@ -1,17 +1,20 @@
 /**
- * Node that will populate itself from Geoserver REST API
- * 
  * @constructor
  */
-gecui.tree.FeatureTypeNode = function(config) {
-	var featureType = config.featureType;
+gecui.tree.FeatureTypeNode = function() {
+	var href = arguments[0];
 
 	var self = this;
+	
+	var config = {};
+	
+	var featureType = null;
 
 	var onClick = function() {
-		gecui.Application.centerPanel.setCurrentFeatureType(featureType.href);
+		gecui.Application.centerPanel.setFeatureType(href);
 	};
 
+	// TODO: this is just mockup atm
 	var onContextmenu = function(node, e) {
 		var menu = new Ext.menu.Menu( {
 			items : [ {
@@ -22,17 +25,26 @@ gecui.tree.FeatureTypeNode = function(config) {
 	};
 
 	gecui.tree.FeatureTypeNode.superclass.constructor.call(this, Ext.apply( {
-		text : featureType.name,
 		listeners : {
 			click : {
-				fn : onClick,
-				scope : featureType
+				fn : onClick
 			},
 			contextmenu : {
 				fn : onContextmenu
 			}
 		}
 	}, config));
+	
+	var parseFeatureType = function(response) {
+		featureType = Ext.decode(response.responseText).featureType;
+		
+		self.setText(featureType.name);
+	};
+	
+	Ext.Ajax.request( {
+		url : href,
+		success : parseFeatureType
+	});
 };
 
 Ext.extend(gecui.tree.FeatureTypeNode, Ext.tree.TreeNode);

@@ -1,17 +1,22 @@
 /**
- * Node that will populate itself from Geoserver REST API
- * 
  * @constructor
+ * @param name
+ *            workspace name
  */
-gecui.tree.WorkspaceNode = function(config) {
-	var namespace = config.namespace;
+gecui.tree.WorkspaceNode = function() {
+	var href = arguments[0];
 
 	var self = this;
 
+	var config = {};
+
+	var workspace = null;
+
+	// TODO: this is just mockup atm
 	var onContextmenu = function(node, e) {
 		var menu = new Ext.menu.Menu( {
 			items : [ {
-				text : 'Add Layer'
+				text : 'Add DataStore'
 			}, '-', {
 				text : 'Delete'
 			} ]
@@ -20,7 +25,6 @@ gecui.tree.WorkspaceNode = function(config) {
 	};
 
 	gecui.tree.WorkspaceNode.superclass.constructor.call(this, Ext.apply( {
-		text : namespace.name,
 		listeners : {
 			contextmenu : {
 				fn : onContextmenu
@@ -28,33 +32,34 @@ gecui.tree.WorkspaceNode = function(config) {
 		}
 	}, config));
 
-	var parseFeatureTypes = function(response) {
-		var featureTypes = Ext.decode(response.responseText).featureTypes.featureType;
+	var parseDataStores = function(response) {
+		var dataStores = Ext.decode(response.responseText).dataStores.dataStore;
 
-		if (!featureTypes) {
+		if (!dataStores) {
 			return;
 		}
 
-		for ( var i = 0; i < featureTypes.length; i++) {
-			self.appendChild(new gecui.tree.FeatureTypeNode( {
-				featureType : featureTypes[i]
-			}));
+		for ( var i = 0; i < dataStores.length; i++) {
+			self.appendChild(new gecui.tree.DataStoreNode(dataStores[i].href));
 		}
 	};
 
-	var parseNamespace = function(response) {
-		var featureTypesHref = Ext.decode(response.responseText).namespace.featureTypes;
+	var parseWorkspace = function(response) {
+		workspace = Ext.decode(response.responseText).workspace;
+
+		self.setText(workspace.name);
 
 		Ext.Ajax.request( {
-			url : featureTypesHref,
-			success : parseFeatureTypes
+			url : workspace.dataStores,
+			success : parseDataStores
 		});
 	};
 
 	Ext.Ajax.request( {
-		url : namespace.href,
-		success : parseNamespace
+		url : href,
+		success : parseWorkspace
 	});
+
 };
 
 Ext.extend(gecui.tree.WorkspaceNode, Ext.tree.TreeNode);
