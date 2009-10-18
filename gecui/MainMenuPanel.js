@@ -21,15 +21,18 @@ gecui.MainMenuPanel = function(config) {
 		text : 'Services'
 	});
 
-	var workspacesNode = new gecui.WorkspacesNode();
+	var workspacesNode = new gecui.tree.WorkspacesNode();
 
 	root.appendChild( [ serverNode, servicesNode, workspacesNode ]);
 
 	var items = [ tree ];
 
-	gecui.MenuPanel.superclass.constructor.call(this, Ext.apply( {
+	gecui.MainMenuPanel.superclass.constructor.call(this, Ext.apply( {
+		border: false,
 		items : items
 	}, config));
 };
 
 Ext.extend(gecui.MainMenuPanel, Ext.Panel);
+
+Ext.reg('gecui-mainmenu', gecui.MainMenuPanel);
