@@ -6,19 +6,19 @@ gecui.Application = function() {
 	gecui.url = '/geoserver/rest/';
 
 	gecui.Application.centerPanel = new gecui.FeatureTypePanel( {
-		region : 'center'
+		region : 'center',
+		margins : '3 3 3 0'
 	});
 
 	var viewport = new Ext.Viewport( {
 		layout : 'border',
-		defaults : {
-			border : false
-		},
 		items : [ {
 			region : 'west',
-			split: true,
+			xtype : 'gecui-mainmenu',
+			margins : '3 0 3 3',
+			split : true,
 			width : 200,
-			items : {xtype: 'gecui-mainmenu'}
+			autoScroll: true
 		}, gecui.Application.centerPanel ]
 	});
 };

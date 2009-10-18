@@ -27,7 +27,7 @@ gecui.MainMenuPanel = function(config) {
 	var items = [ tree ];
 
 	gecui.MainMenuPanel.superclass.constructor.call(this, Ext.apply( {
-		border : false,
+		title: 'Geoserver',
 		items : items
 	}, config));
 };

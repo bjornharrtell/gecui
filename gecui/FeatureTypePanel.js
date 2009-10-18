@@ -60,10 +60,10 @@ gecui.FeatureTypePanel = function(config) {
 	};
 
 	gecui.FeatureTypePanel.superclass.constructor.call(this, Ext.apply( {
-		border: false,
+		title: 'FeatureType properties',
 		frame: true,
 		defaults: {anchor : '95%'},
-		bodyStyle : 'padding:5px 5px 0',
+		bodyStyle : 'padding:5px 5px 0;',
 		items : items,
 		buttons : [ {
 			text : 'Save',
