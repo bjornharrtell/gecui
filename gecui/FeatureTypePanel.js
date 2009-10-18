@@ -35,7 +35,6 @@ gecui.FeatureTypePanel = function(config) {
 	};
 
 	gecui.FeatureTypePanel.superclass.constructor.call(this, Ext.apply( {
-		title : 'FeatureTypePanel',
 		defaultType : 'textfield',
 		defaults : {
 			width : 150

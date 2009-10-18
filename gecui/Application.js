@@ -14,7 +14,6 @@ gecui.Application = function() {
 		},
 		items : [ {
 			region : 'west',
-			title : 'Geoserver',
 			width : 200,
 			items : {xtype: 'gecui-mainmenu'}
 		}, gecui.Application.centerPanel ]
