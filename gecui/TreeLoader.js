@@ -10,6 +10,8 @@ gecui.TreeLoader = function(workspacesNode, layersNode) {
 	var workspaceNodes = [];
 	var layerNodes = [];
 	
+	var requestCount = 0;
+	
 	var parseFeatureTypes = function(response) {
 		var featureTypes = Ext.decode(response.responseText).featureTypes.featureType;
 
@@ -20,19 +22,31 @@ gecui.TreeLoader = function(workspacesNode, layersNode) {
 				leaf : true
 			});
 		}
+		
+		requestCount--;
+		
+		if (requestCount === 0) {
+			workspacesNode.appendChild(workspaceNodes);
+		}
 	};
 
 	var parseDataStore = function(response) {
+		requestCount--;
+		
 		var dataStore = Ext.decode(response.responseText).dataStore;
 
+		requestCount++;
 		Ext.Ajax.request( {
 			url : dataStore.featureTypes,
 			scope : this,
 			success : parseFeatureTypes
 		});
+		
 	};
 
 	var parseDataStores = function(response) {
+		requestCount--;
+		
 		var dataStores = Ext.decode(response.responseText).dataStores.dataStore;
 
 		if (!dataStores) {
@@ -51,22 +65,28 @@ gecui.TreeLoader = function(workspacesNode, layersNode) {
 
 			this.children.push(dataStoreNode);
 
+			requestCount++;
 			Ext.Ajax.request( {
 				url : dataStore.href,
 				scope : dataStoreNode,
 				success : parseDataStore
 			});
 		}
+		
+		
 	};
 
 	var parseWorkspace = function(response) {
+		requestCount--;
 		var workspace = Ext.decode(response.responseText).workspace;
 
+		requestCount++;
 		Ext.Ajax.request( {
 			url : workspace.dataStores,
 			scope : this,
 			success : parseDataStores
 		});
+		
 	};
 
 	var parseWorkspaces = function(response) {
@@ -87,15 +107,13 @@ gecui.TreeLoader = function(workspacesNode, layersNode) {
 
 			workspaceNodes.push(workspaceNode);
 
+			requestCount++;
 			Ext.Ajax.request( {
 				url : workspace.href,
 				scope : workspaceNode,
 				success : parseWorkspace
 			});
 		}
-
-		// TODO: need to make sure no requests are pending before doing this
-		workspacesNode.appendChild(workspaceNodes);
 	};
 
 	var parseLayers = function(response) {
