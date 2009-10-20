@@ -1,27 +1,15 @@
 /**
- * Use the REST API to construct root node attribute configuration for a TreePanel
+ * Use the REST API to construct root node attribute configuration for a
+ * TreePanel
  * 
  * @constructor
  * @param callback
  */
-gecui.TreeLoader = function(callback) {
-	
+gecui.TreeLoader = function(workspacesNode, layersNode) {
+
 	var workspaceNodes = [];
 	var layerNodes = [];
-
-	var root = {
-		text : 'Geoserver',
-		children : [ {
-			text : 'Workspaces',
-			children : workspaceNodes,
-			expanded: true
-		}, {
-			text : 'Layers',
-			children : layerNodes,
-			expanded: true
-		} ]
-	};
-
+	
 	var parseFeatureTypes = function(response) {
 		var featureTypes = Ext.decode(response.responseText).featureTypes.featureType;
 
@@ -29,11 +17,9 @@ gecui.TreeLoader = function(callback) {
 			this.children.push( {
 				id : featureTypes[i].href,
 				text : featureTypes[i].name,
-				leaf: true
+				leaf : true
 			});
 		}
-		
-		callback.call();
 	};
 
 	var parseDataStore = function(response) {
@@ -53,10 +39,10 @@ gecui.TreeLoader = function(callback) {
 			this.leaf = true;
 			return;
 		}
-		
+
 		for ( var i = 0; i < dataStores.length; i++) {
 			var dataStore = dataStores[i];
-			
+
 			var dataStoreNode = {
 				id : dataStore.href,
 				text : dataStore.name,
@@ -87,6 +73,10 @@ gecui.TreeLoader = function(callback) {
 		var workspaces = Ext.decode(response.responseText).workspaces.workspace;
 
 		for ( var i = 0; i < workspaces.length; i++) {
+			if (i === workspaces.length) {
+				finished = true;
+			}
+
 			var workspace = workspaces[i];
 
 			var workspaceNode = {
@@ -103,33 +93,36 @@ gecui.TreeLoader = function(callback) {
 				success : parseWorkspace
 			});
 		}
+
+		// TODO: need to make sure no requests are pending before doing this
+		workspacesNode.appendChild(workspaceNodes);
 	};
-	
+
 	var parseLayers = function(response) {
 		var layers = Ext.decode(response.responseText).layers.layer;
 
 		for ( var i = 0; i < layers.length; i++) {
 			var layer = layers[i];
-			
+
 			var layerNode = {
 				id : layers[i].href,
 				text : layers[i].name,
-				leaf: true
+				leaf : true
 			};
-			
+
 			layerNodes.push(layerNode);
 		}
+
+		layersNode.appendChild(layerNodes);
 	};
 
 	Ext.Ajax.request( {
 		url : gecui.url + 'workspaces.json',
 		success : parseWorkspaces
 	});
-	
+
 	Ext.Ajax.request( {
 		url : gecui.url + 'layers.json',
 		success : parseLayers
 	});
-	
-	this.root = root;
 };

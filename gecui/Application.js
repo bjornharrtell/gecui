@@ -9,8 +9,8 @@ gecui.Application = function() {
 		region : 'center',
 		margins : '3 3 3 0'
 	});
-	
-	// TODO: refactor into 
+
+	// TODO: refactor into
 	var onContextmenu = function(node, e) {
 		if (node.nodeType == 'geoserverFeatureType') {
 			//
@@ -20,41 +20,54 @@ gecui.Application = function() {
 	var onClick = function(node, e) {
 		resourceFormPanel.setResource(node.id);
 	};
-	
+
 	// TODO: TreeLoader implementation directly on suitable REST API
+
+	var workspacesNode = new Ext.tree.TreeNode( {
+		text : 'Workspaces',
+		expanded : true
+	});
+
+	var layersNode = new Ext.tree.TreeNode( {
+		text : 'Layers',
+		expanded : true
+	});
 	
-	var treeLoader;
+	var root = new Ext.tree.TreeNode( {
+		text : 'Layers',
+		expanded : true
+	});
 	
-	var callback = function() {
-		var viewport = new Ext.Viewport( {
-			layout : 'border',
-			items : [ {
-				region : 'west',
-				margins : '3 0 3 3',
-				split : true,
-				width : 200,
-				autoScroll : true,
-				xtype : 'treepanel',
-				root : treeLoader.root,
-				rootVisible : false,
-				listeners : {
-					onclick : {
-						fn : onClick
-					},
-					contextmenu : {
-						fn : onContextmenu
-					}
+	root.appendChild([ workspacesNode, layersNode ]);
+
+	var viewport = new Ext.Viewport( {
+		layout : 'border',
+		items : [ {
+			region : 'west',
+			margins : '3 0 3 3',
+			split : true,
+			width : 200,
+			autoScroll : true,
+			xtype : 'treepanel',
+			root : root,
+			rootVisible : false,
+			listeners : {
+				onclick : {
+					fn : onClick
+				},
+				contextmenu : {
+					fn : onContextmenu
 				}
-			}, {
-				region: 'center',
-				id: 'resourceFormPanel',
-				xtype: 'gecui-resourceformpanel'
-			} ]
-		});
-	};
-	
-	treeLoader = new gecui.TreeLoader(callback);
-	
+			}
+		}, {
+			region : 'center',
+			id : 'resourceFormPanel',
+			xtype : 'gecui-resourceformpanel'
+		} ]
+
+	});
+
+	new gecui.TreeLoader(workspacesNode, layersNode);
 };
 
 Ext.onReady(gecui.Application);
