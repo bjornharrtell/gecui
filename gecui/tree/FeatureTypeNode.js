@@ -1,50 +1,40 @@
 /**
  * @constructor
  */
-gecui.tree.FeatureTypeNode = function() {
-	var href = arguments[0];
+gecui.tree.FeatureTypeNode = function(attr) {
+	gecui.tree.FeatureTypeNode.superclass.constructor.call(this, Ext.apply( {
+		listeners : {
+			click : {
+				fn : this.onClick
+			},
+			contextmenu : {
+				fn : this.onContextmenu
+			}
+		}
+	}, attr));
 
-	var self = this;
-	
-	var config = {};
-	
-	var featureType = null;
+	Ext.Ajax.request( {
+		url : attr.id,
+		scope : this,
+		success : this.parseFeatureType
+	});
+};
 
-	var onClick = function() {
-		gecui.Application.centerPanel.setFeatureType(href);
-	};
-
-	// TODO: this is just mockup atm
-	var onContextmenu = function(node, e) {
+Ext.extend(gecui.tree.FeatureTypeNode, Ext.tree.TreeNode, {
+	onContextmenu : function(node, e) {
 		var menu = new Ext.menu.Menu( {
 			items : [ {
 				text : 'Delete'
 			} ]
 		});
 		menu.showAt(e.getXY());
-	};
+	},
+	onClick : function(node, e) {
+		gecui.Application.centerPanel.setFeatureType(node.id);
+	},
+	parseFeatureType : function(response) {
+		var featureType = Ext.decode(response.responseText).featureType;
 
-	gecui.tree.FeatureTypeNode.superclass.constructor.call(this, Ext.apply( {
-		listeners : {
-			click : {
-				fn : onClick
-			},
-			contextmenu : {
-				fn : onContextmenu
-			}
-		}
-	}, config));
-	
-	var parseFeatureType = function(response) {
-		featureType = Ext.decode(response.responseText).featureType;
-		
-		self.setText(featureType.name);
-	};
-	
-	Ext.Ajax.request( {
-		url : href,
-		success : parseFeatureType
-	});
-};
-
-Ext.extend(gecui.tree.FeatureTypeNode, Ext.tree.TreeNode);
+		this.setText(featureType.name);
+	}
+});

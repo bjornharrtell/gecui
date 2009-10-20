@@ -1,40 +1,37 @@
 /**
  * @constructor
  */
-gecui.tree.DataStoreNode = function() {
-	var href = arguments[0];
-
-	var self = this;
-
-	var config = {};
-
+gecui.tree.DataStoreNode = function(attr) {
 	gecui.tree.DataStoreNode.superclass.constructor.call(this, Ext.apply( {},
-			config));
-
-	var parseFeatureTypes = function(response) {
-		var featureTypes = Ext.decode(response.responseText).featureTypes.featureType;
-
-		for ( var i = 0; i < featureTypes.length; i++) {
-			self.appendChild(new gecui.tree.FeatureTypeNode(
-					featureTypes[i].href));
-		}
-	};
-
-	var parseDataStore = function(response) {
-		var dataStore = Ext.decode(response.responseText).dataStore;
-
-		self.setText(dataStore.name);
-
-		Ext.Ajax.request( {
-			url : dataStore.featureTypes,
-			success : parseFeatureTypes
-		});
-	};
+			attr));
 
 	Ext.Ajax.request( {
-		url : href,
-		success : parseDataStore
+		url : attr.id,
+		scope : this,
+		success : this.parseDataStore
 	});
 };
 
-Ext.extend(gecui.tree.DataStoreNode, Ext.tree.TreeNode);
+Ext.extend(gecui.tree.DataStoreNode, Ext.tree.TreeNode, {
+	parseFeatureTypes : function(response) {
+		var featureTypes = Ext.decode(response.responseText).featureTypes.featureType;
+
+		for ( var i = 0; i < featureTypes.length; i++) {
+			this.appendChild(new gecui.tree.FeatureTypeNode( {
+				id : featureTypes[i].href,
+				text : featureTypes[i].name
+			}));
+		}
+	},
+	parseDataStore : function(response) {
+		var dataStore = Ext.decode(response.responseText).dataStore;
+
+		this.setText(dataStore.name);
+
+		Ext.Ajax.request( {
+			url : dataStore.featureTypes,
+			scope : this,
+			success : this.parseFeatureTypes
+		});
+	}
+});

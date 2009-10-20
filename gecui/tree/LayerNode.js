@@ -1,26 +1,23 @@
 /**
  * @constructor
  */
-gecui.tree.LayerNode = function(href) {
-	var href = arguments[0];
-
-	var self = this;
-
-	var config = {};
-
-	gecui.tree.LayerNode.superclass.constructor.call(this, Ext.apply( {},
-			config));
-
-	var parseLayer = function(response) {
-		var layer = Ext.decode(response.responseText).layer;
-		
-		self.setText(layer.name);
-	};
+gecui.tree.LayerNode = function(attr) {
+	gecui.tree.LayerNode.superclass.constructor.apply(this, arguments);
 
 	Ext.Ajax.request( {
-		url : href,
-		success : parseLayer
+		url : attr.id,
+		scope: this,
+		success : this.parseLayer
 	});
 };
 
-Ext.extend(gecui.tree.LayerNode, Ext.tree.TreeNode);
+Ext.extend(gecui.tree.LayerNode, Ext.tree.TreeNode, {
+	parseLayer: function(response) {
+		var layer = Ext.decode(response.responseText).layer;
+		
+		this.setText(layer.name);
+	}
+});
+
+//this is to support future TreeLoader support 
+Ext.tree.TreePanel.nodeTypes.geoserverLayer = gecui.tree.LayerNode;

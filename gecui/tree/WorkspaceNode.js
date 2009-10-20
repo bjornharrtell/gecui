@@ -3,17 +3,24 @@
  * @param name
  *            workspace name
  */
-gecui.tree.WorkspaceNode = function() {
-	var href = arguments[0];
+gecui.tree.WorkspaceNode = function(attr) {
+	gecui.tree.WorkspaceNode.superclass.constructor.call(this, Ext.apply( {
+		listeners : {
+			contextmenu : {
+				fn : this.onContextmenu
+			}
+		}
+	}, attr));
 
-	var self = this;
+	Ext.Ajax.request( {
+		url : attr.id,
+		scope: this,
+		success : this.parseWorkspace
+	});
+};
 
-	var config = {};
-
-	var workspace = null;
-
-	// TODO: this is just mockup atm
-	var onContextmenu = function(node, e) {
+Ext.extend(gecui.tree.WorkspaceNode, Ext.tree.TreeNode, {
+	onContextmenu: function(node, e) {
 		var menu = new Ext.menu.Menu( {
 			items : [ {
 				text : 'Add DataStore'
@@ -22,17 +29,19 @@ gecui.tree.WorkspaceNode = function() {
 			} ]
 		});
 		menu.showAt(e.getXY());
-	};
+	},
+	parseWorkspace: function(response) {
+		workspace = Ext.decode(response.responseText).workspace;
 
-	gecui.tree.WorkspaceNode.superclass.constructor.call(this, Ext.apply( {
-		listeners : {
-			contextmenu : {
-				fn : onContextmenu
-			}
-		}
-	}, config));
+		this.setText(workspace.name);
 
-	var parseDataStores = function(response) {
+		Ext.Ajax.request( {
+			url : workspace.dataStores,
+			scope: this,
+			success : this.parseDataStores
+		});
+	},
+	parseDataStores: function(response) {
 		var dataStores = Ext.decode(response.responseText).dataStores.dataStore;
 
 		if (!dataStores) {
@@ -40,26 +49,10 @@ gecui.tree.WorkspaceNode = function() {
 		}
 
 		for ( var i = 0; i < dataStores.length; i++) {
-			self.appendChild(new gecui.tree.DataStoreNode(dataStores[i].href));
+			this.appendChild(new gecui.tree.DataStoreNode({id: dataStores[i].href, text: dataStores[i].name}));
 		}
-	};
+	}
+});
 
-	var parseWorkspace = function(response) {
-		workspace = Ext.decode(response.responseText).workspace;
-
-		self.setText(workspace.name);
-
-		Ext.Ajax.request( {
-			url : workspace.dataStores,
-			success : parseDataStores
-		});
-	};
-
-	Ext.Ajax.request( {
-		url : href,
-		success : parseWorkspace
-	});
-
-};
-
-Ext.extend(gecui.tree.WorkspaceNode, Ext.tree.TreeNode);
+// this is to support future TreeLoader support 
+Ext.tree.TreePanel.nodeTypes.geoserverWorkspace = gecui.tree.WorkspaceNode;
