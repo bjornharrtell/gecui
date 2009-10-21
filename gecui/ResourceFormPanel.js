@@ -10,26 +10,22 @@ gecui.ResourceFormPanel = function(config) {
 };
 
 Ext.extend(gecui.ResourceFormPanel, Ext.Panel, {
-	initResourcePanel : function(resource) {
+	initResourcePanel : function(href) {
 		this.removeAll();
 
-		this.add( {
-			xtype : 'gecui-featureTypePanel',
-			resource : resource
-		});
-	},
-
-	parseResource : function(response) {
-		var resource = Ext.decode(response.responseText);
-		this.initResourcePanel(resource);
-	},
-
-	setResource : function(href) {
-		Ext.Ajax.request( {
+		var featureTypePanel = new gecui.FeatureTypePanel( {
 			url : href,
-			scope: this,
-			success : parseResource
+			method: 'GET'
 		});
+
+		this.add(featureTypePanel);
+
+		this.doLayout();
+
+		featureTypePanel.load();
+	},
+	setResource : function(node) {
+		this.initResourcePanel(node.id);
 	}
 });
 

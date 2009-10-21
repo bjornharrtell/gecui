@@ -18,6 +18,7 @@ gecui.FeatureTypePanel = function(config) {
 		defaults : {
 			anchor : '95%'
 		},
+		defaultType: 'textfield',
 		bodyStyle : 'padding:5px 5px 0;',
 		items : [ {
 			name : 'name',
@@ -36,7 +37,8 @@ gecui.FeatureTypePanel = function(config) {
 			handler : function() {
 				this.getForm().submit();
 			}
-		} ]
+		} ],
+		reader: new gecui.data.FeatureTypeReader()
 
 	}, config));
 };

@@ -18,7 +18,7 @@ gecui.Application = function() {
 	};
 
 	var onClick = function(node, e) {
-		resourceFormPanel.setResource(node.id);
+		resourceFormPanel.setResource(node);
 	};
 
 	// TODO: TreeLoader implementation directly on suitable REST API
@@ -52,18 +52,20 @@ gecui.Application = function() {
 			root : root,
 			rootVisible : false,
 			listeners : {
-				onclick : {
+				click : {
 					fn : onClick
 				},
 				contextmenu : {
 					fn : onContextmenu
 				}
 			}
-		}, {
+		}, resourceFormPanel/*{
 			region : 'center',
-			id : 'resourceFormPanel',
-			xtype : 'gecui-resourceformpanel'
-		} ]
+			id : 'featureTypePanel',
+			xtype: 'gecui-featureTypePanel'
+			id : 'resourceFormPanel'
+			//xtype : 'gecui-resourceformpanel'
+		} */]
 
 	});
 
