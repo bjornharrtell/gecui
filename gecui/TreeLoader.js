@@ -19,7 +19,7 @@ gecui.TreeLoader = function(workspacesNode, layersNode) {
 			this.children.push( {
 				id : featureTypes[i].href,
 				text : featureTypes[i].name,
-				cls: 'gecui-form-featureType',
+				cls: 'gecui-form-featuretype',
 				leaf : true
 			});
 		}

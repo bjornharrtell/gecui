@@ -18,7 +18,7 @@ gecui.Application = function() {
 	};
 
 	var onClick = function(node, e) {
-		resourceFormPanel.setResource(node);
+		resourceFormPanel.setResourceFromNode(node);
 	};
 
 	// TODO: TreeLoader implementation directly on suitable REST API

@@ -18,17 +18,15 @@ gecui.ResourceFormPanel = function(config) {
 };
 
 Ext.extend(gecui.ResourceFormPanel, Ext.Panel, {
-	initResourcePanel : function(href, Class) {
+	initResourcePanel : function(href, xtype) {
 		var panel = this.items.get(0);
 
-		if (!(panel instanceof Class)) {
+		if (!(panel.getXType() == xtype)) {
 			this.removeAll();
 
-			panel = new Class( {
-				border : false
+			this.add( {
+				xtype : xtype
 			});
-
-			this.add(panel);
 
 			this.doLayout();
 		}
@@ -38,13 +36,8 @@ Ext.extend(gecui.ResourceFormPanel, Ext.Panel, {
 			method : 'GET'
 		});
 	},
-	setResource : function(node) {
-		if (node.attributes.cls == 'gecui-form-workspace') {
-			this.initResourcePanel(node.id, gecui.form.WorkspaceFormPanel);
-		} else if (node.attributes.cls == 'gecui-form-featureType') {
-			this.initResourcePanel(node.id, gecui.form.FeatureTypeFormPanel);
-		}
-
+	setResourceFromNode : function(node) {
+		this.initResourcePanel(node.id, node.attributes.cls);
 	}
 });
 
