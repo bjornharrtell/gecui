@@ -10,7 +10,7 @@ gecui.Application = function() {
 		margins : '3 3 3 0'
 	});
 
-	// TODO: refactor into
+	// TODO: refactor?
 	var onContextmenu = function(node, e) {
 		if (node.nodeType == 'geoserverFeatureType') {
 			//
@@ -59,13 +59,7 @@ gecui.Application = function() {
 					fn : onContextmenu
 				}
 			}
-		}, resourceFormPanel/*{
-			region : 'center',
-			id : 'featureTypePanel',
-			xtype: 'gecui-featureTypePanel'
-			id : 'resourceFormPanel'
-			//xtype : 'gecui-resourceformpanel'
-		} */]
+		}, resourceFormPanel]
 
 	});
 

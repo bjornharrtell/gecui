@@ -11,18 +11,29 @@ gecui.ResourceFormPanel = function(config) {
 
 Ext.extend(gecui.ResourceFormPanel, Ext.Panel, {
 	initResourcePanel : function(href) {
-		this.removeAll();
+		var panel = this.items.get(0);
 
-		var featureTypePanel = new gecui.FeatureTypePanel( {
+		if (!(panel instanceof gecui.FeatureTypePanel)) {
+			this.removeAll();
+
+			panel = new gecui.FeatureTypePanel( {
+				border : false
+			});
+
+			this.add(panel);
+
+			this.doLayout();
+
+			panel.load( {
+				url : href,
+				method : 'GET'
+			});
+		}
+
+		panel.load( {
 			url : href,
-			method: 'GET'
+			method : 'GET'
 		});
-
-		this.add(featureTypePanel);
-
-		this.doLayout();
-
-		featureTypePanel.load();
 	},
 	setResource : function(node) {
 		this.initResourcePanel(node.id);
