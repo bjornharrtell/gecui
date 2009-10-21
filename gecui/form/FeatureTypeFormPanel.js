@@ -1,18 +1,9 @@
 /**
- * Form panel for FeatureTypes
- * 
- * This form has a default layout of fields to support editing of FeatureType
- * resources.
- * 
- * TODO: Support the full data structure and CRUD operations. A wish would be
- * that the Geoserver REST API get support for the built in JSON structure in
- * Ext JS for JsonReader and use that for the CRUD.
+ * Form panel for a FeatureType
  * 
  * TODO: Support complex fields (keyvalues and attributes etc).
  * 
  * @constructor
- * @param config.url
- *            URL to FeatureType resource
  */
 gecui.form.FeatureTypeFormPanel = function(config) {
 	gecui.form.FeatureTypeFormPanel.superclass.constructor.call(this, Ext.apply( {
@@ -31,8 +22,8 @@ gecui.form.FeatureTypeFormPanel = function(config) {
 		}, {
 			name : 'abstract',
 			fieldLabel : 'Abstract',
-			xtype: 'textarea',
-			height: 100
+			xtype : 'textarea',
+			height : 100
 		} ],
 		buttons : [ {
 			text : 'Save',
@@ -41,28 +32,11 @@ gecui.form.FeatureTypeFormPanel = function(config) {
 			handler : function() {
 				this.getForm().submit();
 			}
-		} ]
-
+		} ],
+		reader : new gecui.data.ResourceReader('featureType')
 	}, config));
 };
 
-gecui.form.FeatureTypeFormPanel.Load = Ext.extend(Ext.form.Action.Load, {
-	handleResponse : function(response) {
-		var featureType = Ext.decode(response.responseText);
-
-		var formData = {
-			success : true,
-			data : featureType.featureType
-		};
-
-		return formData;
-	}
-});
-
-Ext.extend(gecui.form.FeatureTypeFormPanel, Ext.form.FormPanel, {
-	load : function(options) {
-		this.form.doAction(new gecui.form.FeatureTypeFormPanel.Load(this.form, options), options);
-	}
-});
+Ext.extend(gecui.form.FeatureTypeFormPanel, Ext.form.FormPanel);
 
 Ext.reg('gecui-form-featuretype', gecui.form.FeatureTypeFormPanel);

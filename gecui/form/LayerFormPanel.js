@@ -1,12 +1,12 @@
 /**
- * Form panel for a Workspace
+ * Form panel for a Layer
  * 
  * TODO: Support complex fields (keyvalues and attributes etc).
  * 
  * @constructor
  */
-gecui.form.WorkspaceFormPanel = function(config) {
-	gecui.form.WorkspaceFormPanel.superclass.constructor.call(this, Ext.apply( {
+gecui.form.LayerFormPanel = function(config) {
+	gecui.form.LayerFormPanel.superclass.constructor.call(this, Ext.apply( {
 		frame : true,
 		defaults : {
 			anchor : '95%'
@@ -16,6 +16,9 @@ gecui.form.WorkspaceFormPanel = function(config) {
 		items : [ {
 			name : 'name',
 			fieldLabel : 'Name'
+		}, {
+			name : 'styles',
+			fieldLabel : 'Styles'
 		} ],
 		buttons : [ {
 			text : 'Save',
@@ -25,10 +28,10 @@ gecui.form.WorkspaceFormPanel = function(config) {
 				this.getForm().submit();
 			}
 		} ],
-		reader : new gecui.data.ResourceReader('workspace')
+		reader : new gecui.data.ResourceReader('layer')
 	}, config));
 };
 
-Ext.extend(gecui.form.WorkspaceFormPanel, Ext.form.FormPanel);
+Ext.extend(gecui.form.LayerFormPanel, Ext.form.FormPanel);
 
-Ext.reg('gecui-form-workspace', gecui.form.WorkspaceFormPanel);
+Ext.reg('gecui-form-layer', gecui.form.LayerFormPanel);

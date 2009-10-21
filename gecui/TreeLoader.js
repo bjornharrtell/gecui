@@ -1,6 +1,8 @@
 /**
  * Use the REST API to construct root node attribute configuration for a
- * TreePanel
+ * TreePanel.
+ * 
+ * NOTE: This would probably be better to do serverside...
  * 
  * @constructor
  * @param callback
@@ -9,9 +11,9 @@ gecui.TreeLoader = function(workspacesNode, layersNode) {
 
 	var workspaceNodes = [];
 	var layerNodes = [];
-	
+
 	var requestCount = 0;
-	
+
 	var parseFeatureTypes = function(response) {
 		var featureTypes = Ext.decode(response.responseText).featureTypes.featureType;
 
@@ -19,13 +21,13 @@ gecui.TreeLoader = function(workspacesNode, layersNode) {
 			this.children.push( {
 				id : featureTypes[i].href,
 				text : featureTypes[i].name,
-				cls: 'gecui-form-featuretype',
+				cls : 'gecui-form-featuretype',
 				leaf : true
 			});
 		}
-		
+
 		requestCount--;
-		
+
 		if (requestCount === 0) {
 			workspacesNode.appendChild(workspaceNodes);
 		}
@@ -33,7 +35,7 @@ gecui.TreeLoader = function(workspacesNode, layersNode) {
 
 	var parseDataStore = function(response) {
 		requestCount--;
-		
+
 		var dataStore = Ext.decode(response.responseText).dataStore;
 
 		requestCount++;
@@ -42,12 +44,12 @@ gecui.TreeLoader = function(workspacesNode, layersNode) {
 			scope : this,
 			success : parseFeatureTypes
 		});
-		
+
 	};
 
 	var parseDataStores = function(response) {
 		requestCount--;
-		
+
 		var dataStores = Ext.decode(response.responseText).dataStores.dataStore;
 
 		if (!dataStores) {
@@ -61,6 +63,7 @@ gecui.TreeLoader = function(workspacesNode, layersNode) {
 			var dataStoreNode = {
 				id : dataStore.href,
 				text : dataStore.name,
+				cls : 'gecui-form-datastore',
 				children : []
 			};
 
@@ -73,8 +76,7 @@ gecui.TreeLoader = function(workspacesNode, layersNode) {
 				success : parseDataStore
 			});
 		}
-		
-		
+
 	};
 
 	var parseWorkspace = function(response) {
@@ -87,7 +89,7 @@ gecui.TreeLoader = function(workspacesNode, layersNode) {
 			scope : this,
 			success : parseDataStores
 		});
-		
+
 	};
 
 	var parseWorkspaces = function(response) {
@@ -103,7 +105,7 @@ gecui.TreeLoader = function(workspacesNode, layersNode) {
 			var workspaceNode = {
 				id : workspace.href,
 				text : workspace.name,
-				cls: 'gecui-form-workspace',
+				cls : 'gecui-form-workspace',
 				children : []
 			};
 
@@ -127,7 +129,7 @@ gecui.TreeLoader = function(workspacesNode, layersNode) {
 			var layerNode = {
 				id : layers[i].href,
 				text : layers[i].name,
-				cls: 'gecui-form-layer',
+				cls : 'gecui-form-layer',
 				leaf : true
 			};
 

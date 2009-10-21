@@ -5,8 +5,8 @@
  * 
  * @constructor
  */
-gecui.form.WorkspaceFormPanel = function(config) {
-	gecui.form.WorkspaceFormPanel.superclass.constructor.call(this, Ext.apply( {
+gecui.form.DataStoreFormPanel = function(config) {
+	gecui.form.DataStoreFormPanel.superclass.constructor.call(this, Ext.apply( {
 		frame : true,
 		defaults : {
 			anchor : '95%'
@@ -25,10 +25,10 @@ gecui.form.WorkspaceFormPanel = function(config) {
 				this.getForm().submit();
 			}
 		} ],
-		reader : new gecui.data.ResourceReader('workspace')
+		reader : new gecui.data.ResourceReader('dataStore')
 	}, config));
 };
 
-Ext.extend(gecui.form.WorkspaceFormPanel, Ext.form.FormPanel);
+Ext.extend(gecui.form.DataStoreFormPanel, Ext.form.FormPanel);
 
-Ext.reg('gecui-form-workspace', gecui.form.WorkspaceFormPanel);
+Ext.reg('gecui-form-datastore', gecui.form.DataStoreFormPanel);

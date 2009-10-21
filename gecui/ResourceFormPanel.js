@@ -24,7 +24,7 @@ Ext.extend(gecui.ResourceFormPanel, Ext.Panel, {
 		if (!(panel.getXType() == xtype)) {
 			this.removeAll();
 
-			this.add( {
+			panel = this.add( {
 				xtype : xtype
 			});
 
