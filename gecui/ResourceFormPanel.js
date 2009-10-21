@@ -31,11 +31,6 @@ Ext.extend(gecui.ResourceFormPanel, Ext.Panel, {
 			this.add(panel);
 
 			this.doLayout();
-
-			panel.load( {
-				url : href,
-				method : 'GET'
-			});
 		}
 
 		panel.load( {
@@ -44,10 +39,10 @@ Ext.extend(gecui.ResourceFormPanel, Ext.Panel, {
 		});
 	},
 	setResource : function(node) {
-		if (node.attributes.cls == 'gecui-workspace') {
-			this.initResourcePanel(node.id, gecui.WorkspaceFormPanel);
-		} else if (node.attributes.cls == 'gecui-featureType') {
-			this.initResourcePanel(node.id, gecui.FeatureTypePanel);
+		if (node.attributes.cls == 'gecui-form-workspace') {
+			this.initResourcePanel(node.id, gecui.form.WorkspaceFormPanel);
+		} else if (node.attributes.cls == 'gecui-form-featureType') {
+			this.initResourcePanel(node.id, gecui.form.FeatureTypeFormPanel);
 		}
 
 	}
