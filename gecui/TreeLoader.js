@@ -19,6 +19,7 @@ gecui.TreeLoader = function(workspacesNode, layersNode) {
 			this.children.push( {
 				id : featureTypes[i].href,
 				text : featureTypes[i].name,
+				cls: 'gecui-featureType',
 				leaf : true
 			});
 		}
@@ -102,6 +103,7 @@ gecui.TreeLoader = function(workspacesNode, layersNode) {
 			var workspaceNode = {
 				id : workspace.href,
 				text : workspace.name,
+				cls: 'gecui-workspace',
 				children : []
 			};
 
