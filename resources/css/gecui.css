@@ -1,0 +1,23 @@
+.gecui-layers {
+	background-image: url('../images/layers-stack.png') !important;
+}
+
+.gecui-layer {
+	background-image: url('../images/layer.png') !important;
+}
+
+.gecui-workspaces {
+	background-image: url('../images/zones-stack.png') !important;
+}
+
+.gecui-workspace {
+	background-image: url('../images/zone.png') !important;
+}
+
+.gecui-featuretype {
+	background-image: url('../images/layer-shape-polygon.png') !important;
+}
+
+.gecui-datastore {
+	background-image: url('../images/database.png') !important;
+}
