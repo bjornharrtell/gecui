@@ -13,10 +13,23 @@ gecui.Application = function() {
 	var onContextmenu = function(node, e) {
 		// TODO: refactor into a base class for context menus
 		if (node.attributes.iconCls == 'gecui-featuretype') {
+			var failure = function(response) {
+				Ext.Msg.alert('Status', response.responseText);
+			};
+			
+			var deleteFeatureType = function() {
+				Ext.Ajax.request({
+					method: 'DELETE',
+					url: node.attributes.id,
+					failure: failure
+				});
+			};
+			
 			var menu = new Ext.menu.Menu( {
 				items : [ {
 					text : 'Delete',
-					iconCls: 'gecui-delete'
+					iconCls: 'gecui-delete',
+					handler: deleteFeatureType
 				} ]
 			});
 			menu.showAt(e.getXY());
