@@ -21,3 +21,7 @@
 .gecui-datastore {
 	background-image: url('../images/database.png') !important;
 }
+
+.gecui-delete {
+	background-image: url('../images/cross.png') !important;
+}

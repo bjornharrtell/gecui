@@ -10,10 +10,16 @@ gecui.Application = function() {
 		margins : '3 3 3 0'
 	});
 
-	// TODO: refactor?
 	var onContextmenu = function(node, e) {
-		if (node.nodeType == 'geoserverFeatureType') {
-			//
+		// TODO: refactor into a base class for context menus
+		if (node.attributes.iconCls == 'gecui-featuretype') {
+			var menu = new Ext.menu.Menu( {
+				items : [ {
+					text : 'Delete',
+					iconCls: 'gecui-delete'
+				} ]
+			});
+			menu.showAt(e.getXY());
 		}
 	};
 
@@ -22,25 +28,22 @@ gecui.Application = function() {
 	};
 
 	// TODO: TreeLoader implementation directly on suitable REST API
-
 	var workspacesNode = new Ext.tree.TreeNode( {
 		text : 'Workspaces',
 		expanded : true,
-		iconCls: 'gecui-workspaces'
+		iconCls : 'gecui-workspaces'
 	});
-
 	var layersNode = new Ext.tree.TreeNode( {
 		text : 'Layers',
 		expanded : true,
-		iconCls: 'gecui-layers'
+		iconCls : 'gecui-layers'
 	});
-	
 	var root = new Ext.tree.TreeNode( {
 		text : 'Geoserver',
 		expanded : true
 	});
-	
-	root.appendChild([ workspacesNode, layersNode ]);
+
+	root.appendChild( [ workspacesNode, layersNode ]);
 
 	var viewport = new Ext.Viewport( {
 		layout : 'border',
@@ -61,7 +64,7 @@ gecui.Application = function() {
 					fn : onContextmenu
 				}
 			}
-		}, resourceFormPanel]
+		}, resourceFormPanel ]
 
 	});
 

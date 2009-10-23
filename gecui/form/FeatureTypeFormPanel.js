@@ -15,7 +15,8 @@ gecui.form.FeatureTypeFormPanel = function(config) {
 		bodyStyle : 'padding:5px 5px 0;',
 		items : [ {
 			name : 'name',
-			fieldLabel : 'Name'
+			fieldLabel : 'Name',
+			disabled : true
 		}, {
 			name : 'title',
 			fieldLabel : 'Title'
