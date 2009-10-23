@@ -7,10 +7,11 @@
  * @constructor
  * @param callback
  */
-gecui.TreeLoader = function(workspacesNode, layersNode) {
+gecui.TreeLoader = function(workspacesNode, layersNode, stylesNode) {
 
 	var workspaceNodes = [];
 	var layerNodes = [];
+	var styleNodes = [];
 
 	var requestCount = 0;
 
@@ -18,9 +19,11 @@ gecui.TreeLoader = function(workspacesNode, layersNode) {
 		var featureTypes = Ext.decode(response.responseText).featureTypes.featureType;
 
 		for ( var i = 0; i < featureTypes.length; i++) {
+			var featureType = featureTypes[i];
+			
 			this.children.push( {
-				id : featureTypes[i].href,
-				text : featureTypes[i].name,
+				id : featureType.href,
+				text : featureType.name,
 				xtype : 'gecui-form-featuretype',
 				iconCls : 'gecui-featuretype',
 				leaf : true
@@ -130,8 +133,8 @@ gecui.TreeLoader = function(workspacesNode, layersNode) {
 			var layer = layers[i];
 
 			var layerNode = {
-				id : layers[i].href,
-				text : layers[i].name,
+				id : layer.href,
+				text : layer.name,
 				xtype : 'gecui-form-layer',
 				iconCls : 'gecui-layer',
 				leaf : true
@@ -142,6 +145,26 @@ gecui.TreeLoader = function(workspacesNode, layersNode) {
 
 		layersNode.appendChild(layerNodes);
 	};
+	
+	var parseStyles = function(response) {
+		var styles = Ext.decode(response.responseText).styles.style;
+
+		for ( var i = 0; i < styles.length; i++) {
+			var style = styles[i];
+
+			var styleNode = {
+				id : style.href,
+				text : style.name,
+				xtype : 'gecui-form-style',
+				iconCls : 'gecui-style',
+				leaf : true
+			};
+
+			styleNodes.push(styleNode);
+		}
+
+		stylesNode.appendChild(styleNodes);
+	};
 
 	Ext.Ajax.request( {
 		url : gecui.url + 'workspaces.json',
@@ -151,5 +174,10 @@ gecui.TreeLoader = function(workspacesNode, layersNode) {
 	Ext.Ajax.request( {
 		url : gecui.url + 'layers.json',
 		success : parseLayers
+	});
+	
+	Ext.Ajax.request( {
+		url : gecui.url + 'styles.json',
+		success : parseStyles
 	});
 };

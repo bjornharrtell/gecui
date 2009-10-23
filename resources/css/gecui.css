@@ -1,3 +1,11 @@
+.gecui-workspaces {
+	background-image: url('../images/zones-stack.png') !important;
+}
+
+.gecui-workspace {
+	background-image: url('../images/zone.png') !important;
+}
+
 .gecui-layers {
 	background-image: url('../images/layers-stack.png') !important;
 }
@@ -6,12 +14,12 @@
 	background-image: url('../images/layer.png') !important;
 }
 
-.gecui-workspaces {
-	background-image: url('../images/zones-stack.png') !important;
+.gecui-styles {
+	background-image: url('../images/pictures-stack.png') !important;
 }
 
-.gecui-workspace {
-	background-image: url('../images/zone.png') !important;
+.gecui-style {
+	background-image: url('../images/picture.png') !important;
 }
 
 .gecui-featuretype {

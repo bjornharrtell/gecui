@@ -27,7 +27,7 @@ gecui.Application = function() {
 		resourceFormPanel.setResourceFromNode(node);
 	};
 
-	// TODO: TreeLoader implementation directly on suitable REST API
+	
 	var workspacesNode = new Ext.tree.TreeNode( {
 		text : 'Workspaces',
 		expanded : true,
@@ -38,12 +38,17 @@ gecui.Application = function() {
 		expanded : false,
 		iconCls : 'gecui-layers'
 	});
+	var stylesNode = new Ext.tree.TreeNode( {
+		text : 'Styles',
+		expanded : false,
+		iconCls : 'gecui-styles'
+	});
 	var root = new Ext.tree.TreeNode( {
 		text : 'Geoserver',
 		expanded : true
 	});
 
-	root.appendChild( [ workspacesNode, layersNode ]);
+	root.appendChild( [ workspacesNode, layersNode, stylesNode ]);
 
 	var viewport = new Ext.Viewport( {
 		layout : 'border',
@@ -68,7 +73,8 @@ gecui.Application = function() {
 
 	});
 
-	new gecui.TreeLoader(workspacesNode, layersNode);
+	// TODO: Use Ext Js TreeLoader implementation directly on suitable REST API
+	new gecui.TreeLoader(workspacesNode, layersNode, stylesNode);
 };
 
 Ext.onReady(gecui.Application);
