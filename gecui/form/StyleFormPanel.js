@@ -6,17 +6,28 @@
  * @constructor
  */
 gecui.form.StyleFormPanel = function(config) {
+	var submit = function() {
+		var filename = this.getForm().findField('filename').filename;
+		var sld = this.getForm().findField('filename').getValue();
+		
+		Ext.Ajax.request({
+			method: 'PUT',
+			url: '/geoserver/styles/' + filename,
+			headers: { 'Content-Type': 'application/vnd.ogc.sld+xml' },
+			params: sld
+		});
+	
+	};
+	
 	gecui.form.StyleFormPanel.superclass.constructor.call(this, Ext.apply( {
 		frame : true,
-		defaults : {
-			border: false,
-			anchor : '100% 100%'
-		},
 		hideLabels : true,
 		defaultType : 'textfield',
 		bodyStyle : 'padding:5px 5px 0;',
 		items : [ {
+			border: false,
 			xtype : 'tabpanel',
+			anchor : '100% 100%',
 			activeTab : 0,
 			items : [ {
 				title: 'Text editor',
@@ -32,9 +43,7 @@ gecui.form.StyleFormPanel = function(config) {
 			text : 'Save',
 			formBind : true,
 			scope : this,
-			handler : function() {
-				this.getForm().submit();
-			}
+			handler : submit
 		} ],
 		reader : new gecui.data.ResourceReader('style')
 	}, config));

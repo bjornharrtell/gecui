@@ -4,11 +4,15 @@
  * @constructor
  */
 gecui.data.ResourceReader = function(name) {
+	this.data = null;
+	
 	this.read = function(response) {
+		this.data = Ext.decode(response.responseText)[name];
+		
 		return {
 			success : true,
 			records : [ {
-				data : Ext.decode(response.responseText)[name]
+				data : this.data
 			} ]
 		};
 	};

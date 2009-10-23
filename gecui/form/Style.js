@@ -6,6 +6,8 @@ gecui.form.Style = function(config) {
 
 Ext.extend(gecui.form.Style, Ext.form.TextArea, {
 	setValue: function(filename) {
+		this.filename = filename;
+	
 		var success = function(response) {
 			var sld = response.responseText;
 		
