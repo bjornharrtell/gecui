@@ -35,7 +35,7 @@ gecui.Application = function() {
 	});
 	var layersNode = new Ext.tree.TreeNode( {
 		text : 'Layers',
-		expanded : true,
+		expanded : false,
 		iconCls : 'gecui-layers'
 	});
 	var root = new Ext.tree.TreeNode( {
