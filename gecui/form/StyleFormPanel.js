@@ -20,22 +20,26 @@ gecui.form.StyleFormPanel = function(config) {
 	};
 	
 	gecui.form.StyleFormPanel.superclass.constructor.call(this, Ext.apply( {
-		frame : true,
+		frame: true,
 		hideLabels : true,
 		defaultType : 'textfield',
-		bodyStyle : 'padding:5px 5px 0;',
 		items : [ {
-			border: false,
 			xtype : 'tabpanel',
+			border: false,
 			anchor : '100% 100%',
 			activeTab : 0,
-			items : [ {
-				title: 'Text editor',
+			items : [ {title: 'Text editor',
+				border: false,
+				layout: 'form',
+				hideLabels : true,
+				items : [{
+					
 				name : 'filename',
 				xtype : 'gecui-form-stylefield',
 				anchor : '100% 100%'
-			}, {
+			}]}, {
 				title: 'Styler',
+				border: false,
 				html : 'not implemented yet'
 			} ]
 		} ],
