@@ -10,11 +10,16 @@ gecui.form.StyleFormPanel = function(config) {
 		var filename = this.getForm().findField('filename').filename;
 		var sld = this.getForm().findField('filename').getValue();
 		
+		var failure = function(response) {
+			Ext.Msg.alert('Status', response.responseText);
+		};
+		
 		Ext.Ajax.request({
 			method: 'PUT',
 			url: '/geoserver/styles/' + filename,
 			headers: { 'Content-Type': 'application/vnd.ogc.sld+xml' },
-			params: sld
+			params: sld,
+			failure: failure
 		});
 	
 	};
