@@ -25,16 +25,18 @@ gecui.Application = function() {
 
 	var workspacesNode = new Ext.tree.TreeNode( {
 		text : 'Workspaces',
-		expanded : true
+		expanded : true,
+		iconCls: 'gecui-workspaces'
 	});
 
 	var layersNode = new Ext.tree.TreeNode( {
 		text : 'Layers',
-		expanded : true
+		expanded : true,
+		iconCls: 'gecui-layers'
 	});
 	
 	var root = new Ext.tree.TreeNode( {
-		text : 'Layers',
+		text : 'Geoserver',
 		expanded : true
 	});
 	

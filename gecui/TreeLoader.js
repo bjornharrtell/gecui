@@ -21,7 +21,8 @@ gecui.TreeLoader = function(workspacesNode, layersNode) {
 			this.children.push( {
 				id : featureTypes[i].href,
 				text : featureTypes[i].name,
-				cls : 'gecui-form-featuretype',
+				xtype : 'gecui-form-featuretype',
+				iconCls : 'gecui-featuretype',
 				leaf : true
 			});
 		}
@@ -63,7 +64,8 @@ gecui.TreeLoader = function(workspacesNode, layersNode) {
 			var dataStoreNode = {
 				id : dataStore.href,
 				text : dataStore.name,
-				cls : 'gecui-form-datastore',
+				xtype : 'gecui-form-datastore',
+				iconCls : 'gecui-datastore',
 				children : []
 			};
 
@@ -105,7 +107,8 @@ gecui.TreeLoader = function(workspacesNode, layersNode) {
 			var workspaceNode = {
 				id : workspace.href,
 				text : workspace.name,
-				cls : 'gecui-form-workspace',
+				xtype : 'gecui-form-workspace',
+				iconCls : 'gecui-workspace',
 				children : []
 			};
 
@@ -129,7 +132,8 @@ gecui.TreeLoader = function(workspacesNode, layersNode) {
 			var layerNode = {
 				id : layers[i].href,
 				text : layers[i].name,
-				cls : 'gecui-form-layer',
+				xtype : 'gecui-form-layer',
+				iconCls : 'gecui-layer',
 				leaf : true
 			};
 

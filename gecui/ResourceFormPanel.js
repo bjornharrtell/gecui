@@ -37,7 +37,7 @@ Ext.extend(gecui.ResourceFormPanel, Ext.Panel, {
 		});
 	},
 	setResourceFromNode : function(node) {
-		this.initResourcePanel(node.id, node.attributes.cls);
+		this.initResourcePanel(node.id, node.attributes.xtype);
 	}
 });
 
