@@ -7,47 +7,50 @@
  */
 gecui.form.StyleFormPanel = function(config) {
 	var reader = new gecui.data.ResourceReader('style');
-	
+
 	var submit = function() {
 		var name = reader.data.name;
 		var filename = this.getForm().findField('filename').filename;
 		var sld = this.getForm().findField('filename').getValue();
-		
+
 		var failure = function(response) {
 			Ext.Msg.alert('Status', response.responseText);
 		};
-		
-		Ext.Ajax.request({
-			method: 'PUT',
-			url: gecui.url +'styles/' + name,
-			headers: { 'Content-Type': 'application/vnd.ogc.sld+xml' },
-			params: sld,
-			failure: failure
+
+		Ext.Ajax.request( {
+			method : 'PUT',
+			url : gecui.url + 'styles/' + name,
+			headers : {
+				'Content-Type' : 'application/vnd.ogc.sld+xml'
+			},
+			params : sld,
+			failure : failure
 		});
-	
+
 	};
-	
+
 	gecui.form.StyleFormPanel.superclass.constructor.call(this, Ext.apply( {
-		frame: true,
+		frame : true,
 		hideLabels : true,
 		defaultType : 'textfield',
 		items : [ {
 			xtype : 'tabpanel',
-			border: false,
+			border : false,
 			anchor : '100% 100%',
 			activeTab : 0,
 			items : [ {
-				title: 'Text editor',
-				border: false,
-				layout: 'form',
+				title : 'Text editor',
+				border : false,
+				layout : 'form',
 				hideLabels : true,
-				items : [{
+				items : [ {
 					name : 'filename',
 					xtype : 'gecui-form-stylefield',
 					anchor : '100% 100%'
-				}]}, {
-				title: 'Styler',
-				border: false,
+				} ]
+			}, {
+				title : 'Styler',
+				border : false,
 				html : 'not implemented yet'
 			} ]
 		} ],

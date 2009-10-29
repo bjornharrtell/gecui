@@ -11,7 +11,7 @@ gecui.ResourceFormPanel = function(config) {
 		},
 		layout : 'fit',
 		items : [ {
-			border: true,
+			border : true,
 			xtype : 'form'
 		} ]
 	}, config));

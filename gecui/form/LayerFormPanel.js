@@ -7,17 +7,17 @@
  */
 gecui.form.LayerFormPanel = function(config) {
 	var reader = new gecui.data.ResourceReader('layer');
-	
+
 	var submit = function() {
 		var data = reader.applyFormValues(this.getForm());
-		
-		Ext.Ajax.request({
-			method: 'PUT',
-			url: gecui.url + 'layers/' + data.layer.name,
-			jsonData: data
+
+		Ext.Ajax.request( {
+			method : 'PUT',
+			url : gecui.url + 'layers/' + data.layer.name,
+			jsonData : data
 		});
 	};
-	
+
 	gecui.form.LayerFormPanel.superclass.constructor.call(this, Ext.apply( {
 		frame : true,
 		defaults : {

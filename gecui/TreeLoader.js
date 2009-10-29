@@ -20,7 +20,7 @@ gecui.TreeLoader = function(workspacesNode, layersNode, stylesNode) {
 
 		for ( var i = 0; i < featureTypes.length; i++) {
 			var featureType = featureTypes[i];
-			
+
 			this.children.push( {
 				id : featureType.href,
 				text : featureType.name,
@@ -145,7 +145,7 @@ gecui.TreeLoader = function(workspacesNode, layersNode, stylesNode) {
 
 		layersNode.appendChild(layerNodes);
 	};
-	
+
 	var parseStyles = function(response) {
 		var styles = Ext.decode(response.responseText).styles.style;
 
@@ -175,7 +175,7 @@ gecui.TreeLoader = function(workspacesNode, layersNode, stylesNode) {
 		url : gecui.url + 'layers.json',
 		success : parseLayers
 	});
-	
+
 	Ext.Ajax.request( {
 		url : gecui.url + 'styles.json',
 		success : parseStyles
