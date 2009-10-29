@@ -6,6 +6,18 @@
  * @constructor
  */
 gecui.form.LayerFormPanel = function(config) {
+	var reader = new gecui.data.ResourceReader('layer');
+	
+	var submit = function() {
+		var data = reader.applyFormValues(this.getForm());
+		
+		Ext.Ajax.request({
+			method: 'PUT',
+			url: gecui.url + 'layers/' + data.layer.name,
+			jsonData: data
+		});
+	};
+	
 	gecui.form.LayerFormPanel.superclass.constructor.call(this, Ext.apply( {
 		frame : true,
 		defaults : {
@@ -14,21 +26,20 @@ gecui.form.LayerFormPanel = function(config) {
 		defaultType : 'textfield',
 		bodyStyle : 'padding:5px 5px 0;',
 		items : [ {
-			name : 'name',
-			fieldLabel : 'Name'
+			name : 'path',
+			fieldLabel : 'Path'
 		}, {
 			name : 'styles',
+			xtype : 'gecui-form-stylesfield',
 			fieldLabel : 'Styles'
 		} ],
 		buttons : [ {
 			text : 'Save',
 			formBind : true,
 			scope : this,
-			handler : function() {
-				this.getForm().submit();
-			}
+			handler : submit
 		} ],
-		reader : new gecui.data.ResourceReader('layer')
+		reader : reader
 	}, config));
 };
 

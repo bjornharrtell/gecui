@@ -6,6 +6,18 @@
  * @constructor
  */
 gecui.form.FeatureTypeFormPanel = function(config) {
+	var reader = new gecui.data.ResourceReader('featureType');
+	
+	var submit = function() {
+		var data = reader.applyFormValues(this.getForm());
+		
+		Ext.Ajax.request({
+			method: 'PUT',
+			url: gecui.url + 'workspaces/' + data.featureType.namespace.name + '/datastores/'+ data.featureType.store.name + '/featuretypes/' + data.featureType.name,
+			jsonData: data
+		});
+	};
+	
 	gecui.form.FeatureTypeFormPanel.superclass.constructor.call(this, Ext.apply( {
 		frame : true,
 		defaults : {
@@ -13,11 +25,7 @@ gecui.form.FeatureTypeFormPanel = function(config) {
 		},
 		defaultType : 'textfield',
 		bodyStyle : 'padding:5px 5px 0;',
-		items : [ {
-			name : 'name',
-			fieldLabel : 'Name',
-			disabled : true
-		}, {
+		items : [{
 			name : 'title',
 			fieldLabel : 'Title'
 		}, {
@@ -30,11 +38,9 @@ gecui.form.FeatureTypeFormPanel = function(config) {
 			text : 'Save',
 			formBind : true,
 			scope : this,
-			handler : function() {
-				this.getForm().submit();
-			}
+			handler : submit
 		} ],
-		reader : new gecui.data.ResourceReader('featureType')
+		reader : reader
 	}, config));
 };
 

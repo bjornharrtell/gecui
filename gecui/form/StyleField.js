@@ -15,7 +15,7 @@ Ext.extend(gecui.form.Style, Ext.form.TextArea, {
 		};
 		
 		Ext.Ajax.request({
-			url: '/geoserver/styles/' + filename,
+			url: gecui.stylesurl + filename,
 			scope: this,
 			success: success
 		});

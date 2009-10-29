@@ -3,8 +3,6 @@
  */
 gecui.Application = function() {
 
-	gecui.url = '/geoserver/rest/';
-
 	var resourceFormPanel = new gecui.ResourceFormPanel( {
 		region : 'center',
 		margins : '3 3 3 0'
