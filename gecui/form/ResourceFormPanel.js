@@ -33,6 +33,9 @@ Ext.extend(gecui.form.ResourceFormPanel, Ext.Panel, {
 
         panel.load( {
             url : href,
+            headers : {
+                'Accept' : 'application/json'
+            },
             method : 'GET'
         });
     },

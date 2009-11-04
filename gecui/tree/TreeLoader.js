@@ -23,7 +23,10 @@ Ext.extend(gecui.tree.TreeLoader, Ext.tree.TreeLoader, {
             } else {
                 this.transId = Ext.Ajax.request( {
                     method : this.requestMethod,
-                    url : this.restful ? (this.dataUrl || this.url) + node.id + '.json'
+                    headers : {
+                        'Accept' : 'application/json'
+                    },
+                    url : this.restful ? (this.dataUrl || this.url) + node.id
                             : (this.dataUrl || this.url),
                     success : this.handleResponse,
                     failure : this.handleFailure,
