@@ -9,5 +9,6 @@ gecui = {
 	url: '/geoserver/rest/',
 	stylesurl: '/geoserver/styles/',
 	data : {},
-	form : {}
+	form : {},
+	tree : {}
 };

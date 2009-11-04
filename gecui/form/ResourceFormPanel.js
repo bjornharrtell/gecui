@@ -3,8 +3,8 @@
  * 
  * @constructor
  */
-gecui.ResourceFormPanel = function(config) {
-	gecui.ResourceFormPanel.superclass.constructor.call(this, Ext.apply( {
+gecui.form.ResourceFormPanel = function(config) {
+	gecui.form.ResourceFormPanel.superclass.constructor.call(this, Ext.apply( {
 		border : false,
 		defaults : {
 			border : false
@@ -17,7 +17,7 @@ gecui.ResourceFormPanel = function(config) {
 	}, config));
 };
 
-Ext.extend(gecui.ResourceFormPanel, Ext.Panel, {
+Ext.extend(gecui.form.ResourceFormPanel, Ext.Panel, {
 	initResourcePanel : function(href, xtype) {
 		var panel = this.items.get(0);
 
@@ -37,8 +37,8 @@ Ext.extend(gecui.ResourceFormPanel, Ext.Panel, {
 		});
 	},
 	setResourceFromNode : function(node) {
-		this.initResourcePanel(node.id, node.attributes.xtype);
+		this.initResourcePanel(node.attributes.resturl, node.attributes.xtype);
 	}
 });
 
-Ext.reg('gecui-resourceformpanel', gecui.ResourceFormPanel);
+Ext.reg('gecui-form-resource', gecui.form.ResourceFormPanel);

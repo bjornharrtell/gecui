@@ -20,18 +20,39 @@ gecui.form.LayerFormPanel = function(config) {
 
 	gecui.form.LayerFormPanel.superclass.constructor.call(this, Ext.apply( {
 		frame : true,
-		defaults : {
-			anchor : '95%'
-		},
-		defaultType : 'textfield',
+		layout: 'fit',
 		bodyStyle : 'padding:5px 5px 0;',
 		items : [ {
-			name : 'path',
-			fieldLabel : 'Path'
-		}, {
-			name : 'styles',
-			xtype : 'gecui-form-stylesfield',
-			fieldLabel : 'Styles'
+			layout : 'border',
+			items : [ {
+				layout : 'form',
+				region : 'center',
+				defaultType : 'textfield',
+				defaults : {
+					anchor : '95%'
+				},
+				items : [ {
+					name : 'path',
+					fieldLabel : 'Path'
+				}, {
+					name : 'styles',
+					xtype : 'gecui-form-stylesfield',
+					fieldLabel : 'Styles'
+				} ]
+			}, {
+				region : 'east',
+				layout:'fit',
+				split: true,
+				//collapsed: true,
+				collapseMode: 'mini',
+				collapsible: true,
+				width: 200,
+				items: [{
+					xtype: 'gx_mappanel',
+					
+			        tbar: ['-']
+				}]
+			} ]
 		} ],
 		buttons : [ {
 			text : 'Save',
