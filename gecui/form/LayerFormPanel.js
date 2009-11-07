@@ -18,6 +18,8 @@ gecui.form.LayerFormPanel = function(config) {
         });
     };
 
+    var mapPanel = new GeoExt.MapPanel({title: 'Layer preview', map: {controls: []}});
+
     gecui.form.LayerFormPanel.superclass.constructor.call(this, Ext.apply( {
         frame : true,
         layout : 'fit',
@@ -47,11 +49,7 @@ gecui.form.LayerFormPanel = function(config) {
                 collapseMode : 'mini',
                 collapsible : true,
                 width : 200,
-                items : [ {
-                    xtype : 'gx_mappanel',
-
-                    tbar : [ '-' ]
-                } ]
+                items : [ mapPanel ]
             } ]
         } ],
         buttons : [ {
@@ -62,6 +60,21 @@ gecui.form.LayerFormPanel = function(config) {
         } ],
         reader : reader
     }, config));
+
+    var updateMap = function(layerName) {
+        mapPanel.layers.removeAll();
+        
+        var records = gecui.store.query('name', new RegExp('.*' + layerName));
+        var record = records.get(0);
+        var copy = record.copy();
+
+        mapPanel.layers.add(copy);
+        mapPanel.map.zoomToExtent(OpenLayers.Bounds.fromArray(copy.get("llbbox")));
+    };
+    
+    this.updateMap = updateMap;
+
+    //this.getForm().on('actioncomplete', updateMap);
 };
 
 Ext.extend(gecui.form.LayerFormPanel, Ext.form.FormPanel);

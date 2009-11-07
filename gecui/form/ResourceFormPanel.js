@@ -18,7 +18,7 @@ gecui.form.ResourceFormPanel = function(config) {
 };
 
 Ext.extend(gecui.form.ResourceFormPanel, Ext.Panel, {
-    initResourcePanel : function(href, xtype) {
+    initResourcePanel : function(href, xtype, text) {
         var panel = this.items.get(0);
 
         if (!(panel.getXType() == xtype)) {
@@ -35,9 +35,13 @@ Ext.extend(gecui.form.ResourceFormPanel, Ext.Panel, {
             url : href,
             method : 'GET'
         });
+        
+        if (xtype == 'gecui-form-layer') {
+            panel.updateMap(text);
+        }
     },
     setResourceFromNode : function(node) {
-        this.initResourcePanel(node.attributes.resturl, node.attributes.xtype);
+        this.initResourcePanel(node.attributes.resturl, node.attributes.xtype, node.attributes.text);
     }
 });
 

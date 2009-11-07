@@ -1,4 +1,5 @@
 /**
+ * Extend Ext.tree.TreeLoader to support RESTful data sources
  * @constructor
  */
 gecui.tree.TreeLoader = function(config) {
@@ -6,7 +7,6 @@ gecui.tree.TreeLoader = function(config) {
 
 };
 
-// add support for restful param
 Ext.extend(gecui.tree.TreeLoader, Ext.tree.TreeLoader, {
     // if true the node id will be used as rest path instead of params
     restful : undefined,

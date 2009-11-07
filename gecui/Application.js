@@ -3,13 +3,18 @@
  */
 gecui.Application = function() {
 
+    gecui.store = new GeoExt.data.WMSCapabilitiesStore({
+        url: '/geoserver/ows?service=wms&version=1.1.1&request=GetCapabilities'
+    });
+    gecui.store.load();
+    
     var resourceFormPanel = new gecui.form.ResourceFormPanel( {
         region : 'center',
         margins : '3 3 3 0'
     });
 
+    // TODO: refactor into a base class for context menus
     var onContextmenu = function(node, e) {
-        // TODO: refactor into a base class for context menus
         if (node.attributes.iconCls == 'gecui-featuretype') {
             var failure = function(response) {
                 Ext.Msg.alert('Status', response.responseText);
@@ -43,107 +48,8 @@ gecui.Application = function() {
         expanded : true
     });
 
-    var workspaceNodeLoader = new gecui.tree.TreeLoader( {
-        url : gecui.url,
-        restful : true,
-        applyLoader : false
-    });
-    workspaceNodeLoader.createNode = function(attr) {
-        var workspaceName = attr.name;
-
-        var dataStoreNodeLoader = new gecui.tree.TreeLoader( {
-            url : gecui.url,
-            restful : true,
-            applyLoader : false
-        });
-        dataStoreNodeLoader.createNode = function(attr) {
-            var featureTypeNodeLoader = new gecui.tree.TreeLoader( {
-                url : gecui.url,
-                restful : true
-            });
-            featureTypeNodeLoader.createNode = function(attr) {
-                attr.text = attr.name;
-                attr.resturl = attr.href;
-                delete attr.href;
-                attr.xtype = 'gecui-form-featuretype';
-                attr.iconCls = 'gecui-featuretype';
-                attr.leaf = true;
-                return gecui.tree.TreeLoader.prototype.createNode.call(this, attr);
-            };
-
-            attr.text = attr.name;
-            attr.resturl = attr.href;
-            delete attr.href;
-            attr.xtype = 'gecui-form-datastore';
-            attr.iconCls = 'gecui-datastore';
-            attr.id = 'workspaces/' + workspaceName + '/datastores/' + attr.name + '/featuretypes';
-            attr.loader = featureTypeNodeLoader;
-            return gecui.tree.TreeLoader.prototype.createNode.call(this, attr);
-        };
-
-        attr.text = attr.name;
-        attr.resturl = attr.href;
-        delete attr.href;
-        attr.id = 'workspaces/' + attr.name + '/datastores';
-        attr.xtype = 'gecui-form-workspace';
-        attr.iconCls = 'gecui-workspace';
-        attr.loader = dataStoreNodeLoader;
-        return gecui.tree.TreeLoader.prototype.createNode.call(this, attr);
-    };
-
-    var workspacesNode = new Ext.tree.AsyncTreeNode( {
-        loader : workspaceNodeLoader,
-        text : 'Workspaces',
-        iconCls : 'gecui-workspaces',
-        id : 'workspaces',
-        expanded : true
-    });
-
-    var layerNodeLoader = new gecui.tree.TreeLoader( {
-        url : gecui.url,
-        restful : true
-    });
-    layerNodeLoader.createNode = function(attr) {
-        attr.text = attr.name;
-        attr.resturl = attr.href;
-        delete attr.href;
-        attr.xtype = 'gecui-form-layer';
-        attr.iconCls = 'gecui-layer';
-        attr.leaf = true;
-        return gecui.tree.TreeLoader.prototype.createNode.call(this, attr);
-    };
-
-    var layersNode = new Ext.tree.AsyncTreeNode( {
-        loader : layerNodeLoader,
-        text : 'Layers',
-        expanded : false,
-        iconCls : 'gecui-layers',
-        id : 'layers'
-    });
-
-    var styleNodeLoader = new gecui.tree.TreeLoader( {
-        url : gecui.url,
-        restful : true
-    });
-    styleNodeLoader.createNode = function(attr) {
-        attr.text = attr.name;
-        attr.resturl = attr.href;
-        delete attr.href;
-        attr.xtype = 'gecui-form-style';
-        attr.iconCls = 'gecui-style';
-        attr.leaf = true;
-        return gecui.tree.TreeLoader.prototype.createNode.call(this, attr);
-    };
-
-    var stylesNode = new Ext.tree.AsyncTreeNode( {
-        loader : styleNodeLoader,
-        text : 'Styles',
-        expanded : false,
-        iconCls : 'gecui-styles',
-        id : 'styles'
-    });
-
-    root.appendChild( [ workspacesNode, layersNode, stylesNode ]);
+    root.appendChild( [ new gecui.tree.WorkspacesNode(), new gecui.tree.LayersNode(),
+            new gecui.tree.StylesNode() ]);
 
     var viewport = new Ext.Viewport( {
         layout : 'border',
