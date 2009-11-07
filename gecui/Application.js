@@ -23,7 +23,7 @@ gecui.Application = function() {
             var deleteFeatureType = function() {
                 Ext.Ajax.request( {
                     method : 'DELETE',
-                    url : node.attributes.id,
+                    url : node.attributes.resturl,
                     failure : failure
                 });
             };
