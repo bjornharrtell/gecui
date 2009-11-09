@@ -3,45 +3,15 @@
  */
 gecui.Application = function() {
 
-    gecui.store = new GeoExt.data.WMSCapabilitiesStore({
-        url: '/geoserver/ows?service=wms&version=1.1.1&request=GetCapabilities'
+    gecui.store = new GeoExt.data.WMSCapabilitiesStore( {
+        url : '/geoserver/ows?service=wms&version=1.1.1&request=GetCapabilities'
     });
     gecui.store.load();
-    
+
     var resourceFormPanel = new gecui.form.ResourceFormPanel( {
         region : 'center',
         margins : '3 3 3 0'
     });
-
-    // TODO: refactor into a base class for context menus
-    var onContextmenu = function(node, e) {
-        if (node.attributes.iconCls == 'gecui-featuretype') {
-            var failure = function(response) {
-                Ext.Msg.alert('Status', response.responseText);
-            };
-
-            var deleteFeatureType = function() {
-                Ext.Ajax.request( {
-                    method : 'DELETE',
-                    url : node.attributes.resturl,
-                    failure : failure
-                });
-            };
-
-            var menu = new Ext.menu.Menu( {
-                items : [ {
-                    text : 'Delete',
-                    iconCls : 'gecui-delete',
-                    handler : deleteFeatureType
-                } ]
-            });
-            menu.showAt(e.getXY());
-        }
-    };
-
-    var onClick = function(node, e) {
-        resourceFormPanel.setResourceFromNode(node);
-    };
 
     var root = new Ext.tree.TreeNode( {
         text : 'Geoserver',
@@ -64,10 +34,17 @@ gecui.Application = function() {
             rootVisible : false,
             listeners : {
                 click : {
-                    fn : onClick
+                    fn : function(node, e) {
+                        resourceFormPanel.setResourceFromNode(node);
+                    }
                 },
                 contextmenu : {
-                    fn : onContextmenu
+                    fn : function(node, e) {
+                        Ext.create( {
+                            xtype : node.attributes.xtype + 'nodemenu',
+                            node : node
+                        }).showAt(e.getXY());
+                    }
                 }
             }
         }, resourceFormPanel ]

@@ -10,8 +10,8 @@ gecui.tree.LayersNode = function(config) {
         attr.text = attr.name;
         attr.resturl = attr.href;
         delete attr.href;
-        attr.xtype = 'gecui-form-layer';
-        attr.iconCls = 'gecui-layer';
+        attr.xtype = 'gecui-layer';
+        attr.iconCls = attr.xtype;
         attr.leaf = true;
         return gecui.tree.TreeLoader.prototype.createNode.call(this, attr);
     };

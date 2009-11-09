@@ -47,4 +47,4 @@ gecui.form.FeatureTypeFormPanel = function(config) {
 
 Ext.extend(gecui.form.FeatureTypeFormPanel, Ext.form.FormPanel);
 
-Ext.reg('gecui-form-featuretype', gecui.form.FeatureTypeFormPanel);
+Ext.reg('gecui-featuretypeform', gecui.form.FeatureTypeFormPanel);

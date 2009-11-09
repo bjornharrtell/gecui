@@ -18,4 +18,4 @@ Ext.extend(gecui.form.StylesField, Ext.form.Field, {
     }
 });
 
-Ext.reg('gecui-form-stylesfield', gecui.form.StylesField);
+Ext.reg('gecui-stylesfield', gecui.form.StylesField);

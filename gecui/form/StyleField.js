@@ -22,4 +22,4 @@ Ext.extend(gecui.form.Style, Ext.form.TextArea, {
     }
 });
 
-Ext.reg('gecui-form-stylefield', gecui.form.Style);
+Ext.reg('gecui-stylefield', gecui.form.Style);

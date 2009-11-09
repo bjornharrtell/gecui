@@ -31,4 +31,4 @@ gecui.form.DataStoreFormPanel = function(config) {
 
 Ext.extend(gecui.form.DataStoreFormPanel, Ext.form.FormPanel);
 
-Ext.reg('gecui-form-datastore', gecui.form.DataStoreFormPanel);
+Ext.reg('gecui-datastoreform', gecui.form.DataStoreFormPanel);

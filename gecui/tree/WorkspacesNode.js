@@ -24,8 +24,8 @@ gecui.tree.WorkspacesNode = function(config) {
                 attr.text = attr.name;
                 attr.resturl = attr.href;
                 delete attr.href;
-                attr.xtype = 'gecui-form-featuretype';
-                attr.iconCls = 'gecui-featuretype';
+                attr.xtype = 'gecui-featuretype';
+                attr.iconCls = attr.xtype;
                 attr.leaf = true;
                 return gecui.tree.TreeLoader.prototype.createNode.call(this, attr);
             };
@@ -33,8 +33,8 @@ gecui.tree.WorkspacesNode = function(config) {
             attr.text = attr.name;
             attr.resturl = attr.href;
             delete attr.href;
-            attr.xtype = 'gecui-form-datastore';
-            attr.iconCls = 'gecui-datastore';
+            attr.xtype = 'gecui-datastore';
+            attr.iconCls = attr.xtype;
             attr.id = 'workspaces/' + workspaceName + '/datastores/' + attr.name + '/featuretypes';
             attr.loader = featureTypeNodeLoader;
             return gecui.tree.TreeLoader.prototype.createNode.call(this, attr);
@@ -44,8 +44,8 @@ gecui.tree.WorkspacesNode = function(config) {
         attr.resturl = attr.href;
         delete attr.href;
         attr.id = 'workspaces/' + attr.name + '/datastores';
-        attr.xtype = 'gecui-form-workspace';
-        attr.iconCls = 'gecui-workspace';
+        attr.xtype = 'gecui-workspace';
+        attr.iconCls = attr.xtype;
         attr.loader = dataStoreNodeLoader;
         return gecui.tree.TreeLoader.prototype.createNode.call(this, attr);
     };

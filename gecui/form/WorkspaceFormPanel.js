@@ -31,4 +31,4 @@ gecui.form.WorkspaceFormPanel = function(config) {
 
 Ext.extend(gecui.form.WorkspaceFormPanel, Ext.form.FormPanel);
 
-Ext.reg('gecui-form-workspace', gecui.form.WorkspaceFormPanel);
+Ext.reg('gecui-workspaceform', gecui.form.WorkspaceFormPanel);

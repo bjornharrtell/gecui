@@ -82,4 +82,4 @@ gecui.form.LayerFormPanel = function(config) {
 
 Ext.extend(gecui.form.LayerFormPanel, Ext.form.FormPanel);
 
-Ext.reg('gecui-form-layer', gecui.form.LayerFormPanel);
+Ext.reg('gecui-layerform', gecui.form.LayerFormPanel);

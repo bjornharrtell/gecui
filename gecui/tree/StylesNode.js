@@ -10,8 +10,8 @@ gecui.tree.StylesNode = function(config) {
         attr.text = attr.name;
         attr.resturl = attr.href;
         delete attr.href;
-        attr.xtype = 'gecui-form-style';
-        attr.iconCls = 'gecui-style';
+        attr.xtype = 'gecui-style';
+        attr.iconCls = attr.xtype;
         attr.leaf = true;
         return gecui.tree.TreeLoader.prototype.createNode.call(this, attr);
     };
