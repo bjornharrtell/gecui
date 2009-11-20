@@ -6,6 +6,29 @@
  * @constructor
  */
 gecui.form.WorkspaceFormPanel = function(config) {
+    var reader = new gecui.data.ResourceReader('workspace');
+
+    var submit = function() {
+        var failure = function(response) {
+            Ext.Msg.alert('Status', response.responseText);
+        };
+
+        Ext.Ajax.request( {
+            method : 'POST',
+            url : gecui.url + 'workspaces',
+            jsonData : {
+                "workspace" : {
+                    "name" : this.getForm().findField('name').getValue()
+                }
+            },
+            scope : this,
+            success: function() {
+                this.node.reload();
+            },
+            failure : failure
+        });
+    };
+
     gecui.form.WorkspaceFormPanel.superclass.constructor.call(this, Ext.apply( {
         frame : true,
         defaults : {
@@ -21,11 +44,9 @@ gecui.form.WorkspaceFormPanel = function(config) {
             text : 'Save',
             formBind : true,
             scope : this,
-            handler : function() {
-                this.getForm().submit();
-            }
+            handler : submit
         } ],
-        reader : new gecui.data.ResourceReader('workspace')
+        reader : reader
     }, config));
 };
 

@@ -18,14 +18,18 @@ gecui.form.ResourceFormPanel = function(config) {
 };
 
 Ext.extend(gecui.form.ResourceFormPanel, Ext.Panel, {
-    initResourcePanel : function(href, xtype, text) {
+    setResourceFromNode : function(node) {
         var panel = this.items.get(0);
 
-        if (!(panel.getXType() == xtype)) {
+        var xtype =node.attributes.xtype + 'form';
+        var text = node.attributes.text;
+        
+        if (panel.getXType() !== xtype) {
             this.removeAll();
 
             panel = this.add( {
-                xtype : xtype
+                node: node,
+                xtype: xtype
             });
 
             this.doLayout();
@@ -36,12 +40,9 @@ Ext.extend(gecui.form.ResourceFormPanel, Ext.Panel, {
             method : 'GET'
         });
         
-        if (xtype == 'gecui-layerform') {
+        if (xtype === 'gecui-layerform') {
             panel.updateMap(text);
         }
-    },
-    setResourceFromNode : function(node) {
-        this.initResourcePanel(node.attributes.resturl, node.attributes.xtype + 'form', node.attributes.text);
     }
 });
 

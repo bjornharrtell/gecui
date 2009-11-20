@@ -5,6 +5,12 @@
 .gecui-workspace {
 	background-image: url('../images/zone.png') !important;
 }
+.gecui-workspace-create {
+	background-image: url('../images/zone--plus.png') !important;
+}
+.gecui-workspace-delete {
+	background-image: url('../images/zone--minus.png') !important;
+}
 
 .gecui-layers {
 	background-image: url('../images/layers-stack.png') !important;
@@ -28,6 +34,12 @@
 
 .gecui-datastore {
 	background-image: url('../images/database.png') !important;
+}
+.gecui-datastore-create {
+	background-image: url('../images/database--plus.png') !important;
+}
+.gecui-datastore-delete {
+	background-image: url('../images/database--minus.png') !important;
 }
 
 .gecui-delete {

@@ -53,6 +53,7 @@ gecui.tree.WorkspacesNode = function(config) {
     gecui.tree.WorkspacesNode.superclass.constructor.call(this, Ext.apply( {
         loader : workspaceNodeLoader,
         text : 'Workspaces',
+        xtype: 'gecui-workspaces',
         iconCls : 'gecui-workspaces',
         id : 'workspaces',
         expanded : true
