@@ -8,14 +8,17 @@
 gecui.form.DataStoreFormPanel = function(config) {
     gecui.form.DataStoreFormPanel.superclass.constructor.call(this, Ext.apply( {
         frame : true,
-        defaults : {
-            anchor : '95%'
-        },
         defaultType : 'textfield',
         bodyStyle : 'padding:5px 5px 0;',
         items : [ {
             name : 'name',
-            fieldLabel : 'Name'
+            fieldLabel : 'Name',
+            anchor : '95%'
+        }, {
+            name : 'onnectionparameters',
+            xtype : 'gecui-connectionparametersfield',
+            fieldLabel : 'Connection parameters',
+            width: 300
         } ],
         buttons : [ {
             text : 'Save',
