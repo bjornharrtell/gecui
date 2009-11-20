@@ -21,25 +21,26 @@ Ext.extend(gecui.form.ResourceFormPanel, Ext.Panel, {
     setResourceFromNode : function(node) {
         var panel = this.items.get(0);
 
-        var xtype =node.attributes.xtype + 'form';
+        var xtype = node.attributes.xtype + 'form';
+        var resturl = node.attributes.resturl;
         var text = node.attributes.text;
-        
+
         if (panel.getXType() !== xtype) {
             this.removeAll();
 
             panel = this.add( {
-                node: node,
-                xtype: xtype
+                node : node,
+                xtype : xtype
             });
 
             this.doLayout();
         }
 
         panel.load( {
-            url : href,
+            url : resturl,
             method : 'GET'
         });
-        
+
         if (xtype === 'gecui-layerform') {
             panel.updateMap(text);
         }
