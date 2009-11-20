@@ -8,6 +8,7 @@
 gecui.form.WorkspaceFormPanel = function(config) {
     var reader = new gecui.data.ResourceReader('workspace');
 
+    // TODO: support both create and update
     var submit = function() {
         var failure = function(response) {
             Ext.Msg.alert('Status', response.responseText);

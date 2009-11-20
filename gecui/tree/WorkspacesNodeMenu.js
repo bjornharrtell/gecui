@@ -6,7 +6,7 @@ gecui.tree.WorkspacesNodeMenu = function(config) {
         Ext.Msg.alert('Status', response.responseText);
     };
 
-    var addWorkspace = function() {
+    var createWorkspace = function() {
         var window = new Ext.Window( {
             title : 'Create Workspace',
             bodyStyle:'background-color:white;',  
@@ -24,7 +24,7 @@ gecui.tree.WorkspacesNodeMenu = function(config) {
         items : [ {
             text : 'Create Workspace',
             iconCls : 'gecui-workspace-create',
-            handler : addWorkspace,
+            handler : createWorkspace,
             scope : this
         } ]
     }, config));
