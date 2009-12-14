@@ -43,7 +43,7 @@ gecui.form.LayerFormPanel = function(config) {
                     fieldLabel : 'Path'
                 }, {
                     name : 'styles',
-                    xtype : 'gecui-form-stylesfield',
+                    xtype : 'gecui-stylesfield',
                     fieldLabel : 'Styles'
                 } ]
             }, {

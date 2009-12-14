@@ -45,7 +45,7 @@ gecui.form.StyleFormPanel = function(config) {
                 hideLabels : true,
                 items : [ {
                     name : 'filename',
-                    xtype : 'gecui-form-stylefield',
+                    xtype : 'gecui-stylefield',
                     anchor : '100% 100%'
                 } ]
             }, {
@@ -66,4 +66,4 @@ gecui.form.StyleFormPanel = function(config) {
 
 Ext.extend(gecui.form.StyleFormPanel, Ext.form.FormPanel);
 
-Ext.reg('gecui-form-style', gecui.form.StyleFormPanel);
+Ext.reg('gecui-styleform', gecui.form.StyleFormPanel);

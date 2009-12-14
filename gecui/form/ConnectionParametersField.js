@@ -1,3 +1,6 @@
+/**
+ * @constructor
+ */
 gecui.form.ConnectionParametersField = function(config) {
     gecui.form.ConnectionParametersField.superclass.constructor.call(this, Ext.apply( {
         autoHeight : true,
