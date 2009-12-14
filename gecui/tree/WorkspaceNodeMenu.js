@@ -2,19 +2,30 @@
  * @constructor
  */
 gecui.tree.WorkspaceNodeMenu = function(config) {
-    var failure = function(response) {
-        Ext.Msg.alert('Status', response.responseText);
-    };
+    gecui.tree.WorkspaceNodeMenu.superclass.constructor.call(this, Ext.apply( {
+        items : [ {
+            text : 'Create DataStore',
+            iconCls : 'gecui-datastore-create',
+            handler : this.addDataSource,
+            scope : this
+        }, '-', {
+            text : 'Delete',
+            iconCls : 'gecui-workspace-delete',
+            handler : this.deleteWorkspace,
+            scope : this
+        } ]
+    }, config));
+};
 
-    var addDataSource = function() {
+Ext.extend(gecui.tree.WorkspaceNodeMenu, Ext.menu.Menu, {
+    addDataSource : function() {
         Ext.Ajax.request( {
             method : 'POST',
             url : this.node.attributes.resturl,
-            failure : failure
+            failure : gecui.failure
         });
-    };
-
-    var deleteWorkspace = function() {
+    },
+    deleteWorkspace : function() {
         Ext.Ajax.request( {
             method : 'DELETE',
             url : this.node.attributes.resturl,
@@ -24,23 +35,7 @@ gecui.tree.WorkspaceNodeMenu = function(config) {
                 this.node.remove();
             }
         });
-    };
-
-    gecui.tree.WorkspaceNodeMenu.superclass.constructor.call(this, Ext.apply( {
-        items : [ {
-            text : 'Create DataStore',
-            iconCls : 'gecui-datastore-create',
-            handler : addDataSource,
-            scope : this
-        }, '-', {
-            text : 'Delete',
-            iconCls : 'gecui-workspace-delete',
-            handler : deleteWorkspace,
-            scope : this
-        } ]
-    }, config));
-};
-
-Ext.extend(gecui.tree.WorkspaceNodeMenu, Ext.menu.Menu);
+    }
+});
 
 Ext.reg('gecui-workspacenodemenu', gecui.tree.WorkspaceNodeMenu);

@@ -1,10 +1,10 @@
 /**
  * Extend Ext.tree.TreeLoader to support RESTful data sources
+ * 
  * @constructor
  */
 gecui.tree.TreeLoader = function(config) {
     gecui.tree.TreeLoader.superclass.constructor.call(this, Ext.apply( {}, config));
-
 };
 
 Ext.extend(gecui.tree.TreeLoader, Ext.tree.TreeLoader, {
