@@ -1,8 +1,8 @@
 /**
  * @constructor
  */
-gecui.tree.FeatureTypeNodeMenu = function(config) {
-    gecui.tree.FeatureTypeNodeMenu.superclass.constructor.call(this, Ext.apply( {
+gecui.menu.FeatureTypeNodeMenu = function(config) {
+    gecui.menu.FeatureTypeNodeMenu.superclass.constructor.call(this, Ext.apply( {
         items : [ {
             text : 'Delete',
             iconCls : 'gecui-delete',
@@ -12,7 +12,7 @@ gecui.tree.FeatureTypeNodeMenu = function(config) {
     }, config));
 };
 
-Ext.extend(gecui.tree.FeatureTypeNodeMenu, Ext.menu.Menu, {
+Ext.extend(gecui.menu.FeatureTypeNodeMenu, Ext.menu.Menu, {
     deleteFeatureType : function() {
         Ext.Ajax.request( {
             method : 'DELETE',
@@ -22,4 +22,4 @@ Ext.extend(gecui.tree.FeatureTypeNodeMenu, Ext.menu.Menu, {
     }
 });
 
-Ext.reg('gecui-featuretypenodemenu', gecui.tree.FeatureTypeNodeMenu);
+Ext.reg('gecui-featuretypenodemenu', gecui.menu.FeatureTypeNodeMenu);

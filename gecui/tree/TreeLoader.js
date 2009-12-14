@@ -42,7 +42,7 @@ Ext.extend(gecui.tree.TreeLoader, Ext.tree.TreeLoader, {
             this.runCallback(callback, scope || node, []);
         }
     },
-    // override to handle Geoserver REST API nested arrays
+    // overridden to handle Geoserver REST API nested arrays
     handleResponse : function(response) {
         this.transId = false;
         var a = response.argument;

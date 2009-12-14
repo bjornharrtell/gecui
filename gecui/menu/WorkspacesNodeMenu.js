@@ -1,8 +1,8 @@
 /**
  * @constructor
  */
-gecui.tree.WorkspacesNodeMenu = function(config) {
-    gecui.tree.WorkspacesNodeMenu.superclass.constructor.call(this, Ext.apply( {
+gecui.menu.WorkspacesNodeMenu = function(config) {
+    gecui.menu.WorkspacesNodeMenu.superclass.constructor.call(this, Ext.apply( {
         items : [ {
             text : 'Create Workspace',
             iconCls : 'gecui-workspace-create',
@@ -12,7 +12,7 @@ gecui.tree.WorkspacesNodeMenu = function(config) {
     }, config));
 };
 
-Ext.extend(gecui.tree.WorkspacesNodeMenu, Ext.menu.Menu, {
+Ext.extend(gecui.menu.WorkspacesNodeMenu, Ext.menu.Menu, {
     createWorkspace : function() {
         var window = new Ext.Window( {
             title : 'Create Workspace',
@@ -28,4 +28,4 @@ Ext.extend(gecui.tree.WorkspacesNodeMenu, Ext.menu.Menu, {
     }
 });
 
-Ext.reg('gecui-workspacesnodemenu', gecui.tree.WorkspacesNodeMenu);
+Ext.reg('gecui-workspacesnodemenu', gecui.menu.WorkspacesNodeMenu);

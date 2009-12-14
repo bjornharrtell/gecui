@@ -17,9 +17,9 @@ gecui.Application = function() {
         text : 'Geoserver',
         expanded : true
     });
-
-    root.appendChild( [ new gecui.tree.WorkspacesNode(), new gecui.tree.LayersNode(),
-            new gecui.tree.StylesNode() ]);
+    
+    root.appendChild( [ new gecui.node.WorkspacesNode(), new gecui.node.LayersNode(),
+           new gecui.node.StylesNode() ]);
 
     var viewport = new Ext.Viewport( {
         layout : 'border',
