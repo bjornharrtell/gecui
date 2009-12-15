@@ -17,9 +17,9 @@ gecui.Application = function() {
         text : 'Geoserver',
         expanded : true
     });
-    
+
     root.appendChild( [ new gecui.node.WorkspacesNode(), new gecui.node.LayersNode(),
-           new gecui.node.StylesNode() ]);
+            new gecui.node.StylesNode() ]);
 
     var viewport = new Ext.Viewport( {
         layout : 'border',
@@ -40,8 +40,12 @@ gecui.Application = function() {
                 },
                 contextmenu : {
                     fn : function(node, e) {
+                        var xtype = node.attributes.xtype + 'nodemenu';
+                        if (Ext.ComponentMgr.isRegistered(xtype) === false) {
+                            return;
+                        }
                         Ext.create( {
-                            xtype : node.attributes.xtype + 'nodemenu',
+                            xtype : xtype,
                             node : node
                         }).showAt(e.getXY());
                     }
