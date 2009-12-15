@@ -13,10 +13,6 @@ gecui.form.StyleFormPanel = function(config) {
         var filename = this.getForm().findField('filename').filename;
         var sld = this.getForm().findField('filename').getValue();
 
-        var failure = function(response) {
-            Ext.Msg.alert('Status', response.responseText);
-        };
-
         Ext.Ajax.request( {
             method : 'PUT',
             url : gecui.url + 'styles/' + name,
@@ -24,9 +20,8 @@ gecui.form.StyleFormPanel = function(config) {
                 'Content-Type' : 'application/vnd.ogc.sld+xml'
             },
             params : sld,
-            failure : failure
+            failure : gecui.util.failure
         });
-
     };
 
     gecui.form.StyleFormPanel.superclass.constructor.call(this, Ext.apply( {

@@ -19,22 +19,25 @@ gecui.form.LayerFormPanel = function(config) {
     };
 
     var mapPanel = new GeoExt.MapPanel( {
-        title : 'Layer preview',
+        border: false,
         map : {
             controls : []
         }
     });
 
     gecui.form.LayerFormPanel.superclass.constructor.call(this, Ext.apply( {
-        frame : true,
         layout : 'fit',
-        bodyStyle : 'padding:5px 5px 0;',
+        border : false,
         items : [ {
-            layout : 'border',
+            xtype : 'tabpanel',
+            anchor : '100% 100%',
+            activeTab : 0,
             items : [ {
+                title : 'Properties',
                 layout : 'form',
                 region : 'center',
                 defaultType : 'textfield',
+                bodyStyle : 'padding:5px',
                 defaults : {
                     anchor : '95%'
                 },
@@ -47,13 +50,9 @@ gecui.form.LayerFormPanel = function(config) {
                     fieldLabel : 'Styles'
                 } ]
             }, {
-                region : 'east',
+                title : 'Preview',
                 layout : 'fit',
-                split : true,
-                collapseMode : 'mini',
-                collapsible : true,
-                collapsed: false,
-                width : 200,
+                border: false,
                 items : [ mapPanel ]
             } ]
         } ],
