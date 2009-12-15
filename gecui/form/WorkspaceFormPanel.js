@@ -10,10 +10,6 @@ gecui.form.WorkspaceFormPanel = function(config) {
 
     // TODO: support both create and update
     var submit = function() {
-        var failure = function(response) {
-            Ext.Msg.alert('Status', response.responseText);
-        };
-
         Ext.Ajax.request( {
             method : 'POST',
             url : gecui.url + 'workspaces',
@@ -26,7 +22,7 @@ gecui.form.WorkspaceFormPanel = function(config) {
             success: function() {
                 this.node.reload();
             },
-            failure : failure
+            failure : gecui.util.failure
         });
     };
 

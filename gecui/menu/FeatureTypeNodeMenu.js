@@ -17,7 +17,7 @@ Ext.extend(gecui.menu.FeatureTypeNodeMenu, Ext.menu.Menu, {
         Ext.Ajax.request( {
             method : 'DELETE',
             url : this.node.attributes.resturl,
-            failure : gecui.failure
+            failure : gecui.util.failure
         });
     }
 });

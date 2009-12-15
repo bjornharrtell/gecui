@@ -22,7 +22,7 @@ Ext.extend(gecui.menu.WorkspaceNodeMenu, Ext.menu.Menu, {
         Ext.Ajax.request( {
             method : 'POST',
             url : this.node.attributes.resturl,
-            failure : gecui.failure
+            failure : gecui.util.failure
         });
     },
     deleteWorkspace : function() {
@@ -30,7 +30,7 @@ Ext.extend(gecui.menu.WorkspaceNodeMenu, Ext.menu.Menu, {
             method : 'DELETE',
             url : this.node.attributes.resturl,
             scope : this,
-            failure : failure,
+            failure : gecui.util.failure,
             success : function() {
                 this.node.remove();
             }
