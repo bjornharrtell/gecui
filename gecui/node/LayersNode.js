@@ -7,7 +7,7 @@ gecui.node.LayersNode = function(config) {
         expanded : false,
         iconCls : 'gecui-layers',
         id : 'layers',
-        loader : new gecui.tree.loader.LayersTreeLoader({
+        loader : new gecui.treeloader.LayersTreeLoader({
             url : gecui.url,
             restful : true
         })

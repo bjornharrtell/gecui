@@ -4,11 +4,10 @@
 gecui.node.WorkspacesNode = function(config) {
     gecui.node.WorkspacesNode.superclass.constructor.call(this, Ext.apply( {
         text : 'Workspaces',
-        xtype : 'gecui-workspaces',
+        expanded : true,
         iconCls : 'gecui-workspaces',
         id : 'workspaces',
-        expanded : true,
-        loader : new gecui.tree.loader.WorkspacesTreeLoader( {
+        loader : new gecui.treeloader.WorkspacesTreeLoader( {
             url : gecui.url,
             restful : true,
             applyLoader : false

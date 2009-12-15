@@ -3,11 +3,11 @@
  * 
  * @constructor
  */
-gecui.tree.TreeLoader = function(config) {
-    gecui.tree.TreeLoader.superclass.constructor.call(this, Ext.apply( {}, config));
+gecui.TreeLoader = function(config) {
+    gecui.TreeLoader.superclass.constructor.call(this, Ext.apply( {}, config));
 };
 
-Ext.extend(gecui.tree.TreeLoader, Ext.tree.TreeLoader, {
+Ext.extend(gecui.TreeLoader, Ext.tree.TreeLoader, {
     // if true the node id will be used as rest path instead of params
     restful : undefined,
     requestData : function(node, callback, scope) {

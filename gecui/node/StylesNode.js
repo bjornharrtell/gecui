@@ -7,7 +7,7 @@ gecui.node.StylesNode = function(config) {
         expanded : false,
         iconCls : 'gecui-styles',
         id : 'styles',
-        loader : new gecui.tree.loader.StylesTreeLoader({
+        loader : new gecui.treeloader.StylesTreeLoader({
             url : gecui.url,
             restful : true
         })
