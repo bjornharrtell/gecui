@@ -1,7 +1,7 @@
 /**
  * @namespace
  */
-gecui = {
+var gecui = {
     /**
      * @member gecui
      */
@@ -15,4 +15,3 @@ gecui = {
     treeloader: {},
     util: {}
 };
-
