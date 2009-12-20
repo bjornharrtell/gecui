@@ -15,10 +15,10 @@ gecui.form.DataStore = function(config) {
             fieldLabel : 'Name',
             anchor : '95%'
         }, {
-            name : 'onnectionparameters',
+            name : 'connectionParameters',
             xtype : 'gecui-connectionparametersfield',
             fieldLabel : 'Connection parameters',
-            width: 300
+            anchor : '95%'
         } ],
         buttons : [ {
             text : 'Save',

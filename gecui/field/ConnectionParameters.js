@@ -3,19 +3,34 @@
  */
 gecui.field.ConnectionParameters = function(config) {
     gecui.field.ConnectionParameters.superclass.constructor.call(this, Ext.apply( {
-        autoHeight : true,
-        source : {
-            "(name)" : "My Object",
-            "Created" : new Date(Date.parse('10/15/2006')),
-            "Available" : false,
-            "Version" : .01,
-            "Description" : "A test object"
-        }
+        autoHeight : true
     }, config));
 };
 
-Ext.extend(gecui.field.ConnectionParameters, Ext.form.Field);
+Ext.extend(gecui.field.ConnectionParameters, Ext.grid.PropertyGrid, {
+    isFormField: true,
+    markInvalid: function() {},
+    clearInvalid: function() {},
+    getName : function() {
+        return this.rendered && this.el.dom.name ? this.el.dom.name : this.name || this.id || '';
+    },
+    getValue : function() {
+        return this.v;
+    },
+    setValue : function(v) {
+        this.v = v;
+        var entry = v.entry;
 
-Ext.extend(gecui.field.ConnectionParameters, Ext.grid.PropertyGrid);
+        var obj = {};
+        for (key in entry) {
+            obj[entry[key]['@key']] = entry[key]['$'];
+        }
+        
+        this.setSource(obj);
+    },
+    validate : function(){
+        return true;
+    }
+});
 
 Ext.reg('gecui-connectionparametersfield', gecui.field.ConnectionParameters);
