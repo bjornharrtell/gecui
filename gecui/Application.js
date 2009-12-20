@@ -8,7 +8,7 @@ gecui.Application = function() {
     });
     gecui.store.load();
 
-    var resourceFormPanel = new gecui.form.ResourceFormPanel( {
+    var resourceFormPanel = new gecui.form.Resource( {
         region : 'center',
         margins : '3 3 3 0'
     });
@@ -18,8 +18,7 @@ gecui.Application = function() {
         expanded : true
     });
 
-    root.appendChild( [ new gecui.node.WorkspacesNode(), new gecui.node.LayersNode(),
-            new gecui.node.StylesNode() ]);
+    root.appendChild( [ new gecui.node.Workspaces(), new gecui.node.Layers(), new gecui.node.Styles() ]);
 
     var viewport = new Ext.Viewport( {
         layout : 'border',
@@ -40,7 +39,7 @@ gecui.Application = function() {
                 },
                 contextmenu : {
                     fn : function(node, e) {
-                        var xtype = node.attributes.xtype + 'nodemenu';
+                        var xtype = node.attributes.xtype + 'menu';
                         if (Ext.ComponentMgr.isRegistered(xtype) === false) {
                             return;
                         }

@@ -5,7 +5,7 @@
  * 
  * @constructor
  */
-gecui.form.StyleFormPanel = function(config) {
+gecui.form.Style = function(config) {
     var reader = new gecui.data.ResourceReader('style');
 
     var submit = function() {
@@ -24,7 +24,7 @@ gecui.form.StyleFormPanel = function(config) {
         });
     };
 
-    gecui.form.StyleFormPanel.superclass.constructor.call(this, Ext.apply( {
+    gecui.form.Style.superclass.constructor.call(this, Ext.apply( {
         frame : true,
         hideLabels : true,
         defaultType : 'textfield',
@@ -59,6 +59,6 @@ gecui.form.StyleFormPanel = function(config) {
     }, config));
 };
 
-Ext.extend(gecui.form.StyleFormPanel, Ext.form.FormPanel);
+Ext.extend(gecui.form.Style, Ext.form.FormPanel);
 
-Ext.reg('gecui-styleform', gecui.form.StyleFormPanel);
+Ext.reg('gecui-styleform', gecui.form.Style);

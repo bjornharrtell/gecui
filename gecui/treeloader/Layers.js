@@ -1,11 +1,11 @@
 /**
  * @constructor
  */
-gecui.treeloader.LayersTreeLoader = function(config) {
-    gecui.treeloader.LayersTreeLoader.superclass.constructor.call(this, Ext.apply( {}, config));
+gecui.treeloader.Layers = function(config) {
+    gecui.treeloader.Layers.superclass.constructor.call(this, Ext.apply( {}, config));
 };
 
-Ext.extend(gecui.treeloader.LayersTreeLoader, gecui.TreeLoader, {
+Ext.extend(gecui.treeloader.Layers, gecui.TreeLoader, {
     createNode: function(attr) {
         attr.text = attr.name;
         attr.resturl = attr.href;

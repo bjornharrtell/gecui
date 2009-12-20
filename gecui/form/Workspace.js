@@ -5,7 +5,7 @@
  * 
  * @constructor
  */
-gecui.form.WorkspaceFormPanel = function(config) {
+gecui.form.Workspace = function(config) {
     var reader = new gecui.data.ResourceReader('workspace');
 
     // TODO: support both create and update
@@ -26,7 +26,7 @@ gecui.form.WorkspaceFormPanel = function(config) {
         });
     };
 
-    gecui.form.WorkspaceFormPanel.superclass.constructor.call(this, Ext.apply( {
+    gecui.form.Workspace.superclass.constructor.call(this, Ext.apply( {
         frame : true,
         defaults : {
             anchor : '95%'
@@ -47,6 +47,6 @@ gecui.form.WorkspaceFormPanel = function(config) {
     }, config));
 };
 
-Ext.extend(gecui.form.WorkspaceFormPanel, Ext.form.FormPanel);
+Ext.extend(gecui.form.Workspace, Ext.form.FormPanel);
 
-Ext.reg('gecui-workspaceform', gecui.form.WorkspaceFormPanel);
+Ext.reg('gecui-workspaceform', gecui.form.Workspace);

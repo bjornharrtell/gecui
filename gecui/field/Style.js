@@ -1,10 +1,10 @@
 // TODO: Implement a field that loads a style
 
-gecui.form.Style = function(config) {
-    gecui.form.Style.superclass.constructor.call(this, Ext.apply( {}, config));
+gecui.field.Style = function(config) {
+    gecui.field.Style.superclass.constructor.call(this, Ext.apply( {}, config));
 };
 
-Ext.extend(gecui.form.Style, Ext.form.TextArea, {
+Ext.extend(gecui.field.Style, Ext.form.TextArea, {
     setValue : function(filename) {
         this.filename = filename;
 
@@ -22,4 +22,4 @@ Ext.extend(gecui.form.Style, Ext.form.TextArea, {
     }
 });
 
-Ext.reg('gecui-stylefield', gecui.form.Style);
+Ext.reg('gecui-stylefield', gecui.field.Style);

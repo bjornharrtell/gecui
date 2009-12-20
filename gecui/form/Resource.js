@@ -5,8 +5,8 @@
  * 
  * @constructor
  */
-gecui.form.ResourceFormPanel = function(config) {
-    gecui.form.ResourceFormPanel.superclass.constructor.call(this, Ext.apply( {
+gecui.form.Resource = function(config) {
+    gecui.form.Resource.superclass.constructor.call(this, Ext.apply( {
         border : false,
         defaults : {
             border : false
@@ -21,7 +21,7 @@ gecui.form.ResourceFormPanel = function(config) {
     }, config));
 };
 
-Ext.extend(gecui.form.ResourceFormPanel, Ext.Panel, {
+Ext.extend(gecui.form.Resource, Ext.Panel, {
     /**
      * Initialize resource panel
      * 
@@ -83,4 +83,4 @@ Ext.extend(gecui.form.ResourceFormPanel, Ext.Panel, {
     }
 });
 
-Ext.reg('gecui-resourceform', gecui.form.ResourceFormPanel);
+Ext.reg('gecui-resourceform', gecui.form.Resource);

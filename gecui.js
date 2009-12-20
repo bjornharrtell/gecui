@@ -9,6 +9,7 @@ var gecui = {
     url : '/geoserver/rest/',
     stylesurl : '/geoserver/styles/',
     data : {},
+    field: {},
     form : {},
     menu : {},
     node : {},

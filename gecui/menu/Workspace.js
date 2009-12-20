@@ -1,8 +1,8 @@
 /**
  * @constructor
  */
-gecui.menu.WorkspaceNodeMenu = function(config) {
-    gecui.menu.WorkspaceNodeMenu.superclass.constructor.call(this, Ext.apply( {
+gecui.menu.Workspace = function(config) {
+    gecui.menu.Workspace.superclass.constructor.call(this, Ext.apply( {
         items : [ {
             text : 'Create DataStore',
             iconCls : 'gecui-datastore-create',
@@ -17,7 +17,7 @@ gecui.menu.WorkspaceNodeMenu = function(config) {
     }, config));
 };
 
-Ext.extend(gecui.menu.WorkspaceNodeMenu, Ext.menu.Menu, {
+Ext.extend(gecui.menu.Workspace, Ext.menu.Menu, {
     addDataSource : function() {
         Ext.Ajax.request( {
             method : 'POST',
@@ -38,4 +38,4 @@ Ext.extend(gecui.menu.WorkspaceNodeMenu, Ext.menu.Menu, {
     }
 });
 
-Ext.reg('gecui-workspacenodemenu', gecui.menu.WorkspaceNodeMenu);
+Ext.reg('gecui-workspacemenu', gecui.menu.Workspace);

@@ -5,7 +5,7 @@
  * 
  * @constructor
  */
-gecui.form.LayerFormPanel = function(config) {
+gecui.form.Layer = function(config) {
     var reader = new gecui.data.ResourceReader('layer');
 
     var submit = function() {
@@ -25,7 +25,7 @@ gecui.form.LayerFormPanel = function(config) {
         }
     });
 
-    gecui.form.LayerFormPanel.superclass.constructor.call(this, Ext.apply( {
+    gecui.form.Layer.superclass.constructor.call(this, Ext.apply( {
         layout : 'fit',
         border : false,
         items : [ {
@@ -79,6 +79,6 @@ gecui.form.LayerFormPanel = function(config) {
     this.updateMap = updateMap;
 };
 
-Ext.extend(gecui.form.LayerFormPanel, Ext.form.FormPanel);
+Ext.extend(gecui.form.Layer, Ext.form.FormPanel);
 
-Ext.reg('gecui-layerform', gecui.form.LayerFormPanel);
+Ext.reg('gecui-layerform', gecui.form.Layer);

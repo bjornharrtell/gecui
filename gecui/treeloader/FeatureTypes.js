@@ -1,16 +1,16 @@
 /**
  * @constructor
  */
-gecui.treeloader.StylesTreeLoader = function(config) {
-    gecui.treeloader.StylesTreeLoader.superclass.constructor.call(this, Ext.apply( {}, config));
+gecui.treeloader.FeatureTypes = function(config) {
+    gecui.treeloader.FeatureTypes.superclass.constructor.call(this, Ext.apply( {}, config));
 };
 
-Ext.extend(gecui.treeloader.StylesTreeLoader, gecui.TreeLoader, {
+Ext.extend(gecui.treeloader.FeatureTypes, gecui.TreeLoader, {
     createNode : function(attr) {
         attr.text = attr.name;
         attr.resturl = attr.href;
         delete attr.href;
-        attr.xtype = 'gecui-style';
+        attr.xtype = 'gecui-featuretype';
         attr.iconCls = attr.xtype;
         attr.leaf = true;
         return gecui.TreeLoader.prototype.createNode.call(this, attr);

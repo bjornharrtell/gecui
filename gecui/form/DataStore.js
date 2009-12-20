@@ -5,8 +5,8 @@
  * 
  * @constructor
  */
-gecui.form.DataStoreFormPanel = function(config) {
-    gecui.form.DataStoreFormPanel.superclass.constructor.call(this, Ext.apply( {
+gecui.form.DataStore = function(config) {
+    gecui.form.DataStore.superclass.constructor.call(this, Ext.apply( {
         frame : true,
         defaultType : 'textfield',
         bodyStyle : 'padding:5px 5px 0;',
@@ -32,6 +32,6 @@ gecui.form.DataStoreFormPanel = function(config) {
     }, config));
 };
 
-Ext.extend(gecui.form.DataStoreFormPanel, Ext.form.FormPanel);
+Ext.extend(gecui.form.DataStore, Ext.form.FormPanel);
 
-Ext.reg('gecui-datastoreform', gecui.form.DataStoreFormPanel);
+Ext.reg('gecui-datastoreform', gecui.form.DataStore);

@@ -5,7 +5,7 @@
  * 
  * @constructor
  */
-gecui.form.FeatureTypeFormPanel = function(config) {
+gecui.form.FeatureType = function(config) {
     var reader = new gecui.data.ResourceReader('featureType');
 
     var submit = function() {
@@ -19,7 +19,7 @@ gecui.form.FeatureTypeFormPanel = function(config) {
         });
     };
 
-    gecui.form.FeatureTypeFormPanel.superclass.constructor.call(this, Ext.apply( {
+    gecui.form.FeatureType.superclass.constructor.call(this, Ext.apply( {
         frame : true,
         defaults : {
             anchor : '95%'
@@ -45,6 +45,6 @@ gecui.form.FeatureTypeFormPanel = function(config) {
     }, config));
 };
 
-Ext.extend(gecui.form.FeatureTypeFormPanel, Ext.form.FormPanel);
+Ext.extend(gecui.form.FeatureType, Ext.form.FormPanel);
 
-Ext.reg('gecui-featuretypeform', gecui.form.FeatureTypeFormPanel);
+Ext.reg('gecui-featuretypeform', gecui.form.FeatureType);
