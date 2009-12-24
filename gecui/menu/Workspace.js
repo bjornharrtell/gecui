@@ -6,24 +6,37 @@ gecui.menu.Workspace = function(config) {
         items : [ {
             text : 'Create DataStore',
             iconCls : 'gecui-datastore-create',
-            handler : this.addDataSource,
+            handler : this.createDataStore,
             scope : this
         }, '-', {
             text : 'Delete',
             iconCls : 'gecui-workspace-delete',
             handler : this.deleteWorkspace,
             scope : this
-        } ]
+        } ],
+        windowDataStore: undefined
     }, config));
 };
 
 Ext.extend(gecui.menu.Workspace, Ext.menu.Menu, {
-    addDataSource : function() {
-        Ext.Ajax.request( {
-            method : 'POST',
-            url : this.node.attributes.resturl,
-            failure : gecui.util.failure
-        });
+    windowDataStore: null,
+    createDataStore : function() {
+        if (this.windowDataStore === undefined) {
+            this.windowDataStore = new Ext.Window( {
+                title : 'Create DataStore',
+                bodyStyle : 'background-color:white;',
+                layout: 'fit',
+                width: 400,
+                height: 300,
+                items : new gecui.form.DataStore( {
+                    border : false,
+                    frame : false,
+                    node : this.node
+                })
+            });
+        }
+    
+        this.windowDataStore.show();
     },
     deleteWorkspace : function() {
         Ext.Ajax.request( {
