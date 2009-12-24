@@ -6,25 +6,14 @@
  * @constructor
  */
 gecui.form.Layer = function(config) {
-    var reader = new gecui.data.ResourceReader('layer');
-
-    var submit = function() {
-        var data = reader.applyFormValues(this.getForm());
-
-        Ext.Ajax.request( {
-            method : 'PUT',
-            url : gecui.url + 'layers/' + data.layer.name,
-            jsonData : data
-        });
-    };
-
-    var mapPanel = new GeoExt.MapPanel( {
-        border: false,
+    // TODO: find out if one MapPanel instance could be shared
+    this.mapPanel = new GeoExt.MapPanel( {
+        border : false,
         map : {
             controls : []
         }
     });
-
+    
     gecui.form.Layer.superclass.constructor.call(this, Ext.apply( {
         layout : 'fit',
         border : false,
@@ -52,33 +41,41 @@ gecui.form.Layer = function(config) {
             }, {
                 title : 'Preview',
                 layout : 'fit',
-                border: false,
-                items : [ mapPanel ]
+                border : false,
+                items : [ this.mapPanel ]
             } ]
         } ],
         buttons : [ {
             text : 'Save',
             formBind : true,
             scope : this,
-            handler : submit
+            handler : this.updateLayer
         } ],
-        reader : reader
+        reader : new gecui.data.ResourceReader('layer')
     }, config));
+};
 
-    var updateMap = function(layerName) {
-        mapPanel.layers.removeAll();
+Ext.extend(gecui.form.Layer, Ext.form.FormPanel, {
+    mapPanel : null,
+    updateMap : function(layerName) {
+        this.mapPanel.layers.removeAll();
 
         var records = gecui.store.query('name', new RegExp('.*' + layerName));
         var record = records.get(0);
         var copy = record.copy();
 
-        mapPanel.layers.add(copy);
-        mapPanel.map.zoomToExtent(OpenLayers.Bounds.fromArray(copy.get("llbbox")));
-    };
+        this.mapPanel.layers.add(copy);
+        this.mapPanel.map.zoomToExtent(OpenLayers.Bounds.fromArray(copy.get("llbbox")));
+    },
+    updateLayer : function() {
+        var data = reader.applyFormValues(this.getForm());
 
-    this.updateMap = updateMap;
-};
-
-Ext.extend(gecui.form.Layer, Ext.form.FormPanel);
+        Ext.Ajax.request( {
+            method : 'PUT',
+            url : gecui.url + 'layers/' + data.layer.name,
+            jsonData : data
+        });
+    }
+});
 
 Ext.reg('gecui-layerform', gecui.form.Layer);

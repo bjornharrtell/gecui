@@ -6,19 +6,6 @@
  * @constructor
  */
 gecui.form.FeatureType = function(config) {
-    var reader = new gecui.data.ResourceReader('featureType');
-
-    var submit = function() {
-        var data = reader.applyFormValues(this.getForm());
-
-        Ext.Ajax.request( {
-            method : 'PUT',
-            url : gecui.url + 'workspaces/' + data.featureType.namespace.name + '/datastores/'
-                    + data.featureType.store.name + '/featuretypes/' + data.featureType.name,
-            jsonData : data
-        });
-    };
-
     gecui.form.FeatureType.superclass.constructor.call(this, Ext.apply( {
         frame : true,
         defaults : {
@@ -39,12 +26,23 @@ gecui.form.FeatureType = function(config) {
             text : 'Save',
             formBind : true,
             scope : this,
-            handler : submit
+            handler : this.updateFeatureType
         } ],
-        reader : reader
+        reader : new gecui.data.ResourceReader('featureType')
     }, config));
 };
 
-Ext.extend(gecui.form.FeatureType, Ext.form.FormPanel);
+Ext.extend(gecui.form.FeatureType, Ext.form.FormPanel, {
+    updateFeatureType : function() {
+        var data = this.reader.applyFormValues(this.getForm());
+
+        Ext.Ajax.request( {
+            method : 'PUT',
+            url : gecui.url + 'workspaces/' + data.featureType.namespace.name + '/datastores/'
+                    + data.featureType.store.name + '/featuretypes/' + data.featureType.name,
+            jsonData : data
+        });
+    }
+});
 
 Ext.reg('gecui-featuretypeform', gecui.form.FeatureType);
