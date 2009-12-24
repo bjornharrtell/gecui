@@ -1,9 +1,14 @@
 #!/usr/bin/python
 
-import httplib, urllib, sys, os
+import httplib, urllib, sys, os, stat
 
 sourcecount = 0
 mergedsource = []
+
+print 'Removing old build...'
+
+if os.access('gecui-all.js', os.W_OK):
+    os.remove('gecui-all.js')
 
 print 'Merging source files...'
 
