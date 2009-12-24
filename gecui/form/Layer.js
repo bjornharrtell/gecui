@@ -6,6 +6,7 @@
  * @constructor
  */
 gecui.form.Layer = function(config) {
+    
     // TODO: find out if one MapPanel instance could be shared
     this.mapPanel = new GeoExt.MapPanel( {
         border : false,

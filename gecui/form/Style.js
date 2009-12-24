@@ -6,24 +6,6 @@
  * @constructor
  */
 gecui.form.Style = function(config) {
-    var reader = new gecui.data.ResourceReader('style');
-
-    var submit = function() {
-        var name = reader.data.name;
-        var filename = this.getForm().findField('filename').filename;
-        var sld = this.getForm().findField('filename').getValue();
-
-        Ext.Ajax.request( {
-            method : 'PUT',
-            url : gecui.url + 'styles/' + name,
-            headers : {
-                'Content-Type' : 'application/vnd.ogc.sld+xml'
-            },
-            params : sld,
-            failure : gecui.util.failure
-        });
-    };
-
     gecui.form.Style.superclass.constructor.call(this, Ext.apply( {
         frame : true,
         hideLabels : true,
@@ -53,12 +35,24 @@ gecui.form.Style = function(config) {
             text : 'Save',
             formBind : true,
             scope : this,
-            handler : submit
+            handler : this.updateSLD
         } ],
-        reader : reader
+        reader : new gecui.data.ResourceReader('style')
     }, config));
 };
 
-Ext.extend(gecui.form.Style, Ext.form.FormPanel);
+Ext.extend(gecui.form.Style, Ext.form.FormPanel, {
+    updateSLD : function() {
+        Ext.Ajax.request( {
+            method : 'PUT',
+            url : gecui.url + 'styles/' + this.reader.data.name,
+            headers : {
+                'Content-Type' : 'application/vnd.ogc.sld+xml'
+            },
+            params : this.getForm().findField('filename').getValue(),
+            failure : gecui.util.failure
+        });
+    }
+});
 
 Ext.reg('gecui-styleform', gecui.form.Style);

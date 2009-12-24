@@ -5,19 +5,18 @@ gecui.field.Style = function(config) {
 };
 
 Ext.extend(gecui.field.Style, Ext.form.TextArea, {
+    filename: null,
+    processResponse: function(response) {
+        // use the response text as value
+        Ext.form.TextArea.prototype.setValue.call(this, response.responseText);
+    },
     setValue : function(filename) {
         this.filename = filename;
-
-        var success = function(response) {
-            var sld = response.responseText;
-
-            Ext.form.TextArea.prototype.setValue.call(this, sld);
-        };
 
         Ext.Ajax.request( {
             url : gecui.stylesurl + filename,
             scope : this,
-            success : success
+            success : this.processResponse
         });
     }
 });
