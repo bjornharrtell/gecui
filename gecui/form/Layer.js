@@ -6,7 +6,7 @@
  * @constructor
  */
 gecui.form.Layer = function(config) {
-    
+
     // TODO: find out if one MapPanel instance could be shared
     this.mapPanel = new GeoExt.MapPanel( {
         border : false,
@@ -14,7 +14,7 @@ gecui.form.Layer = function(config) {
             controls : []
         }
     });
-    
+
     gecui.form.Layer.superclass.constructor.call(this, Ext.apply( {
         layout : 'fit',
         border : false,
@@ -35,9 +35,9 @@ gecui.form.Layer = function(config) {
                     name : 'path',
                     fieldLabel : 'Path'
                 }, {
-                    name : 'styles',
-                    xtype : 'gecui-stylesfield',
-                    fieldLabel : 'Styles'
+                    name : 'defaultStyle',
+                    xtype : 'gecui-defaultstylefield',
+                    fieldLabel : 'Default style'
                 } ]
             }, {
                 title : 'Preview',
@@ -54,11 +54,17 @@ gecui.form.Layer = function(config) {
         } ],
         reader : new gecui.data.ResourceReader('layer')
     }, config));
+
+    this.on('actioncomplete', function() {
+        this.getForm().findField('defaultStyle').setStyles(this.reader.data.styles.style);
+    });
 };
 
 Ext.extend(gecui.form.Layer, Ext.form.FormPanel, {
     mapPanel : null,
     updateMap : function(layerName) {
+        this.layerName = layerName;
+
         this.mapPanel.layers.removeAll();
 
         var records = gecui.store.query('name', new RegExp('.*' + layerName));
@@ -67,14 +73,19 @@ Ext.extend(gecui.form.Layer, Ext.form.FormPanel, {
 
         this.mapPanel.layers.add(copy);
         this.mapPanel.map.zoomToExtent(OpenLayers.Bounds.fromArray(copy.get("llbbox")));
+        this.mapPanel.map.layers[0].redraw(true);
     },
     updateLayer : function() {
-        var data = reader.applyFormValues(this.getForm());
+        var data = this.reader.applyFormValues(this.getForm());
 
         Ext.Ajax.request( {
             method : 'PUT',
             url : gecui.url + 'layers/' + data.layer.name,
-            jsonData : data
+            jsonData : data,
+            success : function() {
+                this.updateMap(this.layerName);
+            },
+            scope: this
         });
     }
 });
